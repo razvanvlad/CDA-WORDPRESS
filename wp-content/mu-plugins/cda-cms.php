@@ -96,6 +96,15 @@ function cda_add_acf_field_groups() {
                         'name' => 'secondary_cta',
                         'type' => 'link',
                         'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_header_image',
+                        'label' => 'Desktop Image',
+                        'name' => 'desktopImage',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                        'preview_size' => 'large',
                     )
                 )
             ),
@@ -127,6 +136,46 @@ function cda_add_acf_field_groups() {
                         'name' => 'link',
                         'type' => 'link',
                         'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_platforms_section',
+                'label' => 'Platforms Section',
+                'name' => 'platforms_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_platforms_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_platforms_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'textarea',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_platforms_logos',
+                        'label' => 'Logos',
+                        'name' => 'logos',
+                        'type' => 'repeater',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_logo_image',
+                                'label' => 'Logo Image',
+                                'name' => 'logo',
+                                'type' => 'image',
+                                'return_format' => 'object',
+                                'show_in_graphql' => 1,
+                            )
+                        )
                     )
                 )
             ),
