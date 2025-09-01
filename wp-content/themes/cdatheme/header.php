@@ -1,3 +1,4 @@
+<!-- wp-content/themes/cdatheme/header.php -->
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -20,27 +21,33 @@
 
 <body <?php body_class(); ?>>
     <?php wp_body_open(); ?>
-<!-- header with menu -->
-<header id="masthead" class="site-header">
-    <div class="max-w-6xl mx-auto px-4 py-4">
-        <div class="flex items-center justify-between">
-            <h1 class="text-2xl font-bold text-gray-800">CDA1</h1>
-            <nav class="hidden md:flex space-x-8">
-                <?php
-                wp_nav_menu(array(
-                    'theme_location' => 'primary',
-                    'menu_class' => 'flex space-x-8',
-                    'container' => false,
-                    'items_wrap' => '%3$s',
-                    'fallback_cb' => false,
-                ));
-                ?>
-            </nav>
-            <button class="md:hidden">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+    
+    <header id="masthead" class="site-header">
+        <div class="max-w-6xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold text-gray-800">CDA</h1>
+                
+                <!-- Primary Navigation Menu -->
+                <nav class="hidden md:flex space-x-8">
+                    <?php
+                    if (has_nav_menu('primary')) {
+                        wp_nav_menu(array(
+                            'theme_location' => 'primary',
+                            'menu_class' => 'flex space-x-8',
+                            'container' => false,
+                            'items_wrap' => '%3$s',
+                            'fallback_cb' => false,
+                        ));
+                    }
+                    ?>
+                </nav>
+                
+                <!-- Mobile menu button -->
+                <button class="md:hidden p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
         </div>
-    </div>
-</header>
+    </header>

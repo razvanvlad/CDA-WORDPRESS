@@ -19,7 +19,6 @@ function cdatheme_setup() {
     // Register navigation menus
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'cdatheme'),
-        'footer' => __('Footer Menu', 'cdatheme')
     ));
 }
 add_action('after_setup_theme', 'cdatheme_setup');
