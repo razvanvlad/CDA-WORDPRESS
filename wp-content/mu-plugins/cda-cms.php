@@ -52,6 +52,78 @@ if (function_exists('acf_add_options_page')) {
     ));
 }
 
+// SEO SETTINGS
+add_action('acf/init', 'cda_add_seo_field_groups');
+function cda_add_seo_field_groups() {
+    // SEO Settings for all pages
+    acf_add_local_field_group(array(
+        'key' => 'group_seo_settings',
+        'title' => 'SEO Settings',
+        'fields' => array(
+            array(
+                'key' => 'field_seo_title',
+                'label' => 'SEO Title',
+                'name' => 'seo_title',
+                'type' => 'text',
+                'instructions' => 'Custom title for SEO (max 60 characters)',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_seo_description',
+                'label' => 'Meta Description',
+                'name' => 'seo_description',
+                'type' => 'textarea',
+                'instructions' => 'Custom meta description for SEO (max 160 characters)',
+                'rows' => 3,
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_seo_keywords',
+                'label' => 'Meta Keywords',
+                'name' => 'seo_keywords',
+                'type' => 'text',
+                'instructions' => 'Comma-separated keywords for SEO',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_noindex',
+                'label' => 'No Index',
+                'name' => 'noindex',
+                'type' => 'true_false',
+                'instructions' => 'Check to prevent search engines from indexing this page',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_nofollow',
+                'label' => 'No Follow',
+                'name' => 'nofollow',
+                'type' => 'true_false',
+                'instructions' => 'Check to prevent search engines from following links on this page',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_canonical_url',
+                'label' => 'Canonical URL',
+                'name' => 'canonical_url',
+                'type' => 'url',
+                'instructions' => 'Specify a canonical URL for this page',
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
+            )
+        ),
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'seoSettings',
+    ));
+}
+
 // ACF Field Groups
 add_action('acf/init', 'cda_add_acf_field_groups');
 function cda_add_acf_field_groups() {
@@ -72,7 +144,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_header_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'required' => 1,
                         'show_in_graphql' => 1,
                     ),
@@ -80,7 +152,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_header_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'textarea',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -109,6 +181,44 @@ function cda_add_acf_field_groups() {
                 )
             ),
             array(
+                'key' => 'field_who_we_are_section',
+                'label' => 'Who We Are Section',
+                'name' => 'whoWeAreSection',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_who_we_are_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_who_we_are_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_who_we_are_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_who_we_are_button',
+                        'label' => 'Button',
+                        'name' => 'button',
+                        'type' => 'link',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
                 'key' => 'field_services_accordion',
                 'label' => 'Services Accordion',
                 'name' => 'services_accordion',
@@ -119,7 +229,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_accordion_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'required' => 1,
                         'show_in_graphql' => 1,
                     ),
@@ -127,7 +237,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_accordion_description',
                         'label' => 'Description',
                         'name' => 'description',
-                        'type' => 'textarea',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -150,14 +260,14 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_platforms_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
                         'key' => 'field_platforms_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'textarea',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -190,7 +300,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_values_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -204,14 +314,14 @@ function cda_add_acf_field_groups() {
                                 'key' => 'field_value_title',
                                 'label' => 'Title',
                                 'name' => 'title',
-                                'type' => 'text',
+                                'type' => 'wysiwyg',
                                 'show_in_graphql' => 1,
                             ),
                             array(
                                 'key' => 'field_value_description',
                                 'label' => 'Description',
                                 'name' => 'description',
-                                'type' => 'textarea',
+                                'type' => 'wysiwyg',
                                 'show_in_graphql' => 1,
                             )
                         )
@@ -229,7 +339,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_case_studies_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -253,14 +363,14 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_newsletter_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'text',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
                         'key' => 'field_newsletter_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'textarea',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     )
                 )
