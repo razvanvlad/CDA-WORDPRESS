@@ -88,7 +88,10 @@ $table_prefix = 'wp_';
  *
  * @link https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/
  */
-define( 'WP_DEBUG', false );
+// debug ON
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
 
 /* Add any custom values between this line and the "stop editing" line. */
 
@@ -106,3 +109,8 @@ require_once ABSPATH . 'wp-settings.php';
 
 // wp-config.php
 define( 'ACF_PRO_LICENSE', 'b3JkZXJfaWQ9ODIxNDR8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTA1LTIzIDEwOjQ5OjA0' );
+
+// debug ON
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);

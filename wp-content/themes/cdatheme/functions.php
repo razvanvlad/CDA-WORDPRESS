@@ -1,3 +1,4 @@
+<!-- wp-content/themes/cdatheme/functions.php -->
 <?php
 /**
  * CDA Theme functions and definitions
@@ -19,6 +20,7 @@ function cdatheme_setup() {
     // Register navigation menus
     register_nav_menus(array(
         'primary' => __('Primary Menu', 'cdatheme'),
+        'footer' => __('Footer Menu', 'cdatheme')
     ));
 }
 add_action('after_setup_theme', 'cdatheme_setup');
@@ -29,6 +31,13 @@ function cdatheme_scripts() {
     // We only need this for admin functionality
 }
 add_action('wp_enqueue_scripts', 'cdatheme_scripts');
+
+function add_cors_headers() {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+add_action('init', 'add_cors_headers');
 
 // Register widget areas
 function cdatheme_widgets_init() {
