@@ -1,4 +1,3 @@
-<!-- wp-content/themes/cdatheme/functions.php -->
 <?php
 /**
  * CDA Theme functions and definitions
@@ -52,4 +51,135 @@ function cdatheme_widgets_init() {
     ));
 }
 add_action('widgets_init', 'cdatheme_widgets_init');
+
+// Add Global Content Options in cda-cms.php
+if (function_exists('acf_add_options_page')) {
+    acf_add_options_page(array(
+        'page_title' => 'Global Content',
+        'menu_title' => 'Global Content',
+        'menu_slug' => 'global-content',
+        'capability' => 'edit_posts',
+        'redirect' => false,
+        'show_in_graphql' => true,
+        'graphql_field_name' => 'globalOptions'
+    ));
+}
+
+// Add Header and Footer Fields
+add_action('acf/init', 'cda_add_global_content_fields');
+function cda_add_global_content_fields() {
+    // Header Content
+    acf_add_local_field_group(array(
+        'key' => 'group_header_content',
+        'title' => 'Header Content',
+        'fields' => array(
+            array(
+                'key' => 'field_header_logo',
+                'label' => 'Header Logo',
+                'name' => 'header_logo',
+                'type' => 'image',
+                'return_format' => 'array',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_header_phone',
+                'label' => 'Phone Number',
+                'name' => 'header_phone',
+                'type' => 'text',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_header_email',
+                'label' => 'Email Address',
+                'name' => 'header_email',
+                'type' => 'email',
+                'show_in_graphql' => 1,
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            )
+        ),
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'headerContent'
+    ));
+
+    // Footer Content
+    acf_add_local_field_group(array(
+        'key' => 'group_footer_content',
+        'title' => 'Footer Content',
+        'fields' => array(
+            array(
+                'key' => 'field_footer_logo',
+                'label' => 'Footer Logo',
+                'name' => 'footer_logo',
+                'type' => 'image',
+                'return_format' => 'array',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_footer_text',
+                'label' => 'Footer Text',
+                'name' => 'footer_text',
+                'type' => 'wysiwyg',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_footer_copyright',
+                'label' => 'Copyright Text',
+                'name' => 'footer_copyright',
+                'type' => 'text',
+                'default_value' => '© ' . date('Y') . ' All rights reserved.',
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_footer_social_links',
+                'label' => 'Social Links',
+                'name' => 'footer_social_links',
+                'type' => 'repeater',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_social_platform',
+                        'label' => 'Platform',
+                        'name' => 'platform',
+                        'type' => 'select',
+                        'choices' => array(
+                            'facebook' => 'Facebook',
+                            'twitter' => 'Twitter',
+                            'instagram' => 'Instagram',
+                            'linkedin' => 'LinkedIn',
+                            'youtube' => 'YouTube'
+                        ),
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_social_url',
+                        'label' => 'URL',
+                        'name' => 'url',
+                        'type' => 'url',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            )
+        ),
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'footerContent'
+    ));
+}
+
 ?>
