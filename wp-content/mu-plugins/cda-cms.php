@@ -389,4 +389,356 @@ function cda_add_acf_field_groups() {
         'graphql_field_name' => 'homepageContent',
     ));
 }
+
+// Add About Us Page Fields
+add_action('acf/init', 'cda_add_about_us_fields');
+function cda_add_about_us_fields() {
+    // About Us Page Content
+    acf_add_local_field_group(array(
+        'key' => 'group_about_us_page',
+        'title' => 'About Us Page Content',
+        'fields' => array(
+            array(
+                'key' => 'field_content_page_header',
+                'label' => 'Content Page Header',
+                'name' => 'content_page_header',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_header_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_header_text',
+                        'label' => 'Text',
+                        'name' => 'text',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_header_cta',
+                        'label' => 'CTA',
+                        'name' => 'cta',
+                        'type' => 'link',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_who_we_are_section',
+                'label' => 'Who We Are – Your Digital Partner',
+                'name' => 'who_we_are_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_image_with_frame',
+                        'label' => 'Image with Frame',
+                        'name' => 'image_with_frame',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_title',
+                        'label' => 'Section Title',
+                        'name' => 'section_title',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_text',
+                        'label' => 'Section Text',
+                        'name' => 'section_text',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_cta',
+                        'label' => 'CTA',
+                        'name' => 'cta',
+                        'type' => 'link',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_why_cda_section',
+                'label' => 'Why CDA',
+                'name' => 'why_cda_section',
+                'type' => 'repeater',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_usp_title',
+                        'label' => 'USP Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_usp_description',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_usp_icon',
+                        'label' => 'Icon',
+                        'name' => 'icon',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_services_section',
+                'label' => 'Services',
+                'name' => 'services_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_services_accordion',
+                        'label' => 'Services Accordion',
+                        'name' => 'services_accordion',
+                        'type' => 'repeater',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_accordion_title',
+                                'label' => 'Title',
+                                'name' => 'title',
+                                'type' => 'wysiwyg',
+                                'required' => 1,
+                                'show_in_graphql' => 1,
+                            ),
+                            array(
+                                'key' => 'field_accordion_description',
+                                'label' => 'Description',
+                                'name' => 'description',
+                                'type' => 'wysiwyg',
+                                'show_in_graphql' => 1,
+                            ),
+                            array(
+                                'key' => 'field_accordion_link',
+                                'label' => 'Link',
+                                'name' => 'link',
+                                'type' => 'link',
+                                'show_in_graphql' => 1,
+                            )
+                        )
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_culture_section',
+                'label' => 'Culture',
+                'name' => 'culture_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_culture_gallery',
+                        'label' => 'Culture Gallery',
+                        'name' => 'gallery',
+                        'type' => 'gallery',
+                        'return_format' => 'array',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_approach_section',
+                'label' => 'Our Approach / How We Work',
+                'name' => 'approach_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_approach_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_approach_text',
+                        'label' => 'Text',
+                        'name' => 'text',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_approach_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_stats_section',
+                'label' => 'Stats',
+                'name' => 'stats_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_stats_number',
+                        'label' => 'Number',
+                        'name' => 'number',
+                        'type' => 'number',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_stats_label',
+                        'label' => 'Label',
+                        'name' => 'label',
+                        'type' => 'wysiwyg',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_stats_image',
+                        'label' => 'Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_video_section',
+                'label' => 'Video',
+                'name' => 'video_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_video_url',
+                        'label' => 'Video URL',
+                        'name' => 'url',
+                        'type' => 'url',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_video_title',
+                        'label' => 'Video Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_leadership_section',
+                'label' => 'Leadership Team',
+                'name' => 'leadership_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_leader_image',
+                        'label' => 'Leader Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_name',
+                        'label' => 'Name',
+                        'name' => 'name',
+                        'type' => 'text',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_position',
+                        'label' => 'Position',
+                        'name' => 'position',
+                        'type' => 'text',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_bio',
+                        'label' => 'Bio',
+                        'name' => 'bio',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+            array(
+                'key' => 'field_showreel_section',
+                'label' => 'Our Work Video & Logos',
+                'name' => 'showreel_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_showreel_video',
+                        'label' => 'Showreel Video',
+                        'name' => 'video',
+                        'type' => 'oembed',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_showreel_logos',
+                        'label' => 'Client Logos',
+                        'name' => 'logos',
+                        'type' => 'repeater',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_logo_image',
+                                'label' => 'Logo Image',
+                                'name' => 'image',
+                                'type' => 'image',
+                                'return_format' => 'object',
+                                'show_in_graphql' => 1,
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'template-about-us.php'
+                )
+            )
+        ),
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'aboutUsContent',
+        'map_graphql_types_from_location_rules' => false,
+        'graphql_types' => ['Page']
+    ));
+}
+
+// Add this filter to ensure ACF fields are properly exposed to GraphQL
+add_filter('graphql_resolve_field', function($result, $source, $args, $context, $info) {
+    // This ensures ACF fields are properly resolved
+    return $result;
+}, 10, 5);
+
 ?>
