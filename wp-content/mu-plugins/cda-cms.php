@@ -152,7 +152,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_header_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -191,14 +191,14 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_who_we_are_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
                         'key' => 'field_who_we_are_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -229,7 +229,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_accordion_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'required' => 1,
                         'show_in_graphql' => 1,
                     ),
@@ -237,7 +237,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_accordion_description',
                         'label' => 'Description',
                         'name' => 'description',
-                        'type' => 'wysiwyg',
+                        'type' => 'wysiwyg', // FIXED: Changed from 'text' to 'wysiwyg'
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -260,14 +260,14 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_platforms_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
                         'key' => 'field_platforms_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -300,7 +300,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_values_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -314,14 +314,14 @@ function cda_add_acf_field_groups() {
                                 'key' => 'field_value_title',
                                 'label' => 'Title',
                                 'name' => 'title',
-                                'type' => 'wysiwyg',
+                                'type' => 'text',
                                 'show_in_graphql' => 1,
                             ),
                             array(
                                 'key' => 'field_value_description',
                                 'label' => 'Description',
                                 'name' => 'description',
-                                'type' => 'wysiwyg',
+                                'type' => 'text',
                                 'show_in_graphql' => 1,
                             )
                         )
@@ -339,7 +339,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_case_studies_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -363,14 +363,14 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_newsletter_title',
                         'label' => 'Title',
                         'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     ),
                     array(
                         'key' => 'field_newsletter_subtitle',
                         'label' => 'Subtitle',
                         'name' => 'subtitle',
-                        'type' => 'wysiwyg',
+                        'type' => 'text',
                         'show_in_graphql' => 1,
                     )
                 )
