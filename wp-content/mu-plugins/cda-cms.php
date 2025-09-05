@@ -48,6 +48,156 @@ add_action('init', 'cda_create_custom_post_types');
 function cda_create_custom_post_types() {
     
     // ============================================================================
+    // BLOG POSTS / NEWS ARTICLES (for Resource Center)
+    // ============================================================================
+    register_post_type('blog_posts', array(
+        'labels' => array(
+            'name' => 'Blog Posts',
+            'singular_name' => 'Blog Post',
+            'menu_name' => 'Blog Posts',
+            'add_new' => 'Add Blog Post',
+            'add_new_item' => 'Add New Blog Post',
+            'edit_item' => 'Edit Blog Post',
+            'new_item' => 'New Blog Post',
+            'view_item' => 'View Blog Post',
+            'view_items' => 'View Blog Posts',
+            'search_items' => 'Search Blog Posts',
+            'not_found' => 'No blog posts found',
+            'not_found_in_trash' => 'No blog posts found in Trash',
+            'all_items' => 'All Blog Posts',
+            'archives' => 'Blog Archives',
+            'attributes' => 'Blog Post Attributes',
+            'insert_into_item' => 'Insert into blog post',
+            'uploaded_to_this_item' => 'Uploaded to this blog post',
+            'featured_image' => 'Featured Image',
+            'set_featured_image' => 'Set featured image',
+            'remove_featured_image' => 'Remove featured image',
+            'use_featured_image' => 'Use as featured image',
+        ),
+        'description' => 'CDA Blog Posts - Articles, news, and resources for the knowledge hub',
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => array(
+            'slug' => 'blog',
+            'with_front' => false,
+        ),
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => 19,
+        'menu_icon' => 'dashicons-welcome-write-blog',
+        'supports' => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields', 'page-attributes'),
+        'show_in_rest' => true,
+        'rest_base' => 'blog-posts',
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'blogPost',
+        'graphql_plural_name' => 'blogPosts',
+    ));
+    
+    // ============================================================================
+    // JOB LISTINGS (for Career Pages)
+    // ============================================================================
+    register_post_type('job_listings', array(
+        'labels' => array(
+            'name' => 'Job Listings',
+            'singular_name' => 'Job Listing',
+            'menu_name' => 'Jobs',
+            'add_new' => 'Add Job',
+            'add_new_item' => 'Add New Job Listing',
+            'edit_item' => 'Edit Job Listing',
+            'new_item' => 'New Job Listing',
+            'view_item' => 'View Job Listing',
+            'view_items' => 'View Job Listings',
+            'search_items' => 'Search Jobs',
+            'not_found' => 'No jobs found',
+            'not_found_in_trash' => 'No jobs found in Trash',
+            'all_items' => 'All Jobs',
+            'archives' => 'Job Archives',
+            'attributes' => 'Job Attributes',
+            'insert_into_item' => 'Insert into job listing',
+            'uploaded_to_this_item' => 'Uploaded to this job listing',
+            'featured_image' => 'Job Image',
+            'set_featured_image' => 'Set job image',
+            'remove_featured_image' => 'Remove job image',
+            'use_featured_image' => 'Use as job image',
+        ),
+        'description' => 'CDA Job Listings - Open positions and career opportunities',
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => array(
+            'slug' => 'careers',
+            'with_front' => false,
+        ),
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => 23,
+        'menu_icon' => 'dashicons-businessperson',
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
+        'show_in_rest' => true,
+        'rest_base' => 'job-listings',
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'jobListing',
+        'graphql_plural_name' => 'jobListings',
+    ));
+    
+    // ============================================================================
+    // TECHNOLOGIES (Individual Tech Stack Items)
+    // ============================================================================
+    register_post_type('technologies', array(
+        'labels' => array(
+            'name' => 'Technologies',
+            'singular_name' => 'Technology',
+            'menu_name' => 'Technologies',
+            'add_new' => 'Add Technology',
+            'add_new_item' => 'Add New Technology',
+            'edit_item' => 'Edit Technology',
+            'new_item' => 'New Technology',
+            'view_item' => 'View Technology',
+            'view_items' => 'View Technologies',
+            'search_items' => 'Search Technologies',
+            'not_found' => 'No technologies found',
+            'not_found_in_trash' => 'No technologies found in Trash',
+            'all_items' => 'All Technologies',
+            'archives' => 'Technology Archives',
+            'attributes' => 'Technology Attributes',
+            'insert_into_item' => 'Insert into technology',
+            'uploaded_to_this_item' => 'Uploaded to this technology',
+            'featured_image' => 'Technology Logo',
+            'set_featured_image' => 'Set technology logo',
+            'remove_featured_image' => 'Remove technology logo',
+            'use_featured_image' => 'Use as technology logo',
+        ),
+        'description' => 'CDA Technologies - Tools, frameworks, and platforms we use',
+        'public' => true,
+        'publicly_queryable' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'query_var' => true,
+        'rewrite' => array(
+            'slug' => 'technologies',
+            'with_front' => false,
+        ),
+        'capability_type' => 'post',
+        'has_archive' => true,
+        'hierarchical' => false,
+        'menu_position' => 24,
+        'menu_icon' => 'dashicons-admin-tools',
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
+        'show_in_rest' => true,
+        'rest_base' => 'technologies',
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'technology',
+        'graphql_plural_name' => 'technologies',
+    ));
+    
+    // ============================================================================
     // SERVICES POST TYPE
     // ============================================================================
     register_post_type('services', array(
@@ -295,6 +445,169 @@ function cda_create_taxonomies() {
             'hierarchical' => true,
         ),
     ));
+    
+    // ============================================================================
+    // BLOG CATEGORIES TAXONOMY (for Blog Posts)
+    // ============================================================================
+    register_taxonomy('blog_categories', array('blog_posts'), array(
+        'labels' => array(
+            'name' => 'Blog Categories',
+            'singular_name' => 'Blog Category',
+            'menu_name' => 'Categories',
+            'all_items' => 'All Categories',
+            'edit_item' => 'Edit Category',
+            'view_item' => 'View Category',
+            'update_item' => 'Update Category',
+            'add_new_item' => 'Add New Category',
+            'new_item_name' => 'New Category Name',
+            'search_items' => 'Search Categories',
+            'not_found' => 'No categories found',
+        ),
+        'description' => 'Categories for blog posts and articles',
+        'public' => true,
+        'publicly_queryable' => true,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_in_rest' => true,
+        'rest_base' => 'blog-categories',
+        'show_admin_column' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'blogCategory',
+        'graphql_plural_name' => 'blogCategories',
+        'rewrite' => array(
+            'slug' => 'blog-category',
+            'with_front' => false,
+            'hierarchical' => true,
+        ),
+    ));
+    
+    // Add default blog categories
+    $default_blog_categories = array(
+        'insights' => 'Industry Insights',
+        'tutorials' => 'Tutorials & Guides',
+        'case-studies' => 'Case Studies',
+        'news' => 'Company News',
+        'technology' => 'Technology',
+        'marketing' => 'Digital Marketing',
+        'development' => 'Web Development',
+    );
+    
+    foreach ($default_blog_categories as $slug => $name) {
+        if (!term_exists($name, 'blog_categories')) {
+            wp_insert_term($name, 'blog_categories', array('slug' => $slug));
+        }
+    }
+    
+    // ============================================================================
+    // JOB TYPES TAXONOMY (for Job Listings)
+    // ============================================================================
+    register_taxonomy('job_types', array('job_listings'), array(
+        'labels' => array(
+            'name' => 'Job Types',
+            'singular_name' => 'Job Type',
+            'menu_name' => 'Job Types',
+            'all_items' => 'All Job Types',
+            'edit_item' => 'Edit Job Type',
+            'view_item' => 'View Job Type',
+            'update_item' => 'Update Job Type',
+            'add_new_item' => 'Add New Job Type',
+            'new_item_name' => 'New Job Type Name',
+            'search_items' => 'Search Job Types',
+            'not_found' => 'No job types found',
+        ),
+        'description' => 'Categories for different types of job positions',
+        'public' => true,
+        'publicly_queryable' => true,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_in_rest' => true,
+        'rest_base' => 'job-types',
+        'show_admin_column' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'jobType',
+        'graphql_plural_name' => 'jobTypes',
+        'rewrite' => array(
+            'slug' => 'job-type',
+            'with_front' => false,
+            'hierarchical' => true,
+        ),
+    ));
+    
+    // Add default job types
+    $default_job_types = array(
+        'full-time' => 'Full-Time',
+        'part-time' => 'Part-Time',
+        'contract' => 'Contract',
+        'remote' => 'Remote',
+        'hybrid' => 'Hybrid',
+        'internship' => 'Internship',
+    );
+    
+    foreach ($default_job_types as $slug => $name) {
+        if (!term_exists($name, 'job_types')) {
+            wp_insert_term($name, 'job_types', array('slug' => $slug));
+        }
+    }
+    
+    // ============================================================================
+    // TECH CATEGORIES TAXONOMY (for Technologies)
+    // ============================================================================
+    register_taxonomy('tech_categories', array('technologies'), array(
+        'labels' => array(
+            'name' => 'Tech Categories',
+            'singular_name' => 'Tech Category',
+            'menu_name' => 'Tech Categories',
+            'all_items' => 'All Tech Categories',
+            'edit_item' => 'Edit Tech Category',
+            'view_item' => 'View Tech Category',
+            'update_item' => 'Update Tech Category',
+            'add_new_item' => 'Add New Tech Category',
+            'new_item_name' => 'New Tech Category Name',
+            'search_items' => 'Search Tech Categories',
+            'not_found' => 'No tech categories found',
+        ),
+        'description' => 'Categories for different technology types',
+        'public' => true,
+        'publicly_queryable' => true,
+        'hierarchical' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'show_in_nav_menus' => true,
+        'show_in_rest' => true,
+        'rest_base' => 'tech-categories',
+        'show_admin_column' => true,
+        'show_in_graphql' => true,
+        'graphql_single_name' => 'techCategory',
+        'graphql_plural_name' => 'techCategories',
+        'rewrite' => array(
+            'slug' => 'tech-category',
+            'with_front' => false,
+            'hierarchical' => true,
+        ),
+    ));
+    
+    // Add default tech categories
+    $default_tech_categories = array(
+        'frontend' => 'Frontend',
+        'backend' => 'Backend',
+        'database' => 'Database',
+        'cms' => 'CMS',
+        'framework' => 'Framework',
+        'tool' => 'Development Tool',
+        'design' => 'Design Tool',
+        'analytics' => 'Analytics',
+        'hosting' => 'Hosting & Infrastructure',
+    );
+    
+    foreach ($default_tech_categories as $slug => $name) {
+        if (!term_exists($name, 'tech_categories')) {
+            wp_insert_term($name, 'tech_categories', array('slug' => $slug));
+        }
+    }
     
     // ============================================================================
     // DEPARTMENTS TAXONOMY (for Team Members)
@@ -2436,6 +2749,478 @@ function cda_add_team_members_fields() {
         'description' => 'Information fields for team members',
         'show_in_graphql' => 1,
         'graphql_field_name' => 'teamMemberFields',
+    ));
+}
+
+// ============================================================================
+// BLOG POSTS ACF FIELD GROUPS
+// ============================================================================
+
+add_action('acf/init', 'cda_add_blog_posts_fields');
+function cda_add_blog_posts_fields() {
+    
+    // Blog Posts Content Field Group
+    acf_add_local_field_group(array(
+        'key' => 'group_blog_posts_content',
+        'title' => 'Blog Post Content',
+        'fields' => array(
+            
+            // ARTICLE META
+            array(
+                'key' => 'field_blog_post_meta',
+                'label' => 'Article Meta Information',
+                'name' => 'article_meta',
+                'type' => 'group',
+                'instructions' => 'Additional information about this article',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'articleMeta',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_blog_post_read_time',
+                        'label' => 'Estimated Read Time',
+                        'name' => 'read_time',
+                        'type' => 'number',
+                        'instructions' => 'Estimated read time in minutes',
+                        'min' => 1,
+                        'max' => 60,
+                        'default_value' => 5,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_blog_post_featured',
+                        'label' => 'Featured Article',
+                        'name' => 'featured',
+                        'type' => 'true_false',
+                        'instructions' => 'Mark as featured to show prominently on resource center',
+                        'default_value' => 0,
+                        'ui' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_blog_post_external_url',
+                        'label' => 'External URL',
+                        'name' => 'external_url',
+                        'type' => 'url',
+                        'instructions' => 'If this article links to external content',
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // SEO & SOCIAL
+            array(
+                'key' => 'field_blog_post_social_sharing',
+                'label' => 'Social Sharing',
+                'name' => 'social_sharing',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_blog_post_social_title',
+                        'label' => 'Social Media Title',
+                        'name' => 'social_title',
+                        'type' => 'text',
+                        'instructions' => 'Custom title for social media sharing',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_blog_post_social_description',
+                        'label' => 'Social Media Description',
+                        'name' => 'social_description',
+                        'type' => 'textarea',
+                        'instructions' => 'Custom description for social media sharing',
+                        'rows' => 3,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_blog_post_social_image',
+                        'label' => 'Social Media Image',
+                        'name' => 'social_image',
+                        'type' => 'image',
+                        'instructions' => 'Image for social media sharing (if different from featured image)',
+                        'return_format' => 'array',
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'blog_posts',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Content fields for blog posts and articles',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'blogPostFields',
+    ));
+}
+
+// ============================================================================
+// JOB LISTINGS ACF FIELD GROUPS
+// ============================================================================
+
+add_action('acf/init', 'cda_add_job_listings_fields');
+function cda_add_job_listings_fields() {
+    
+    // Job Listings Content Field Group
+    acf_add_local_field_group(array(
+        'key' => 'group_job_listings_content',
+        'title' => 'Job Listing Details',
+        'fields' => array(
+            
+            // JOB DETAILS
+            array(
+                'key' => 'field_job_listing_details',
+                'label' => 'Job Details',
+                'name' => 'job_details',
+                'type' => 'group',
+                'instructions' => 'Basic job information',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'jobDetails',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_job_listing_location',
+                        'label' => 'Location',
+                        'name' => 'location',
+                        'type' => 'text',
+                        'instructions' => 'Job location (e.g., "Remote", "London, UK", "Hybrid")',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_salary_range',
+                        'label' => 'Salary Range',
+                        'name' => 'salary_range',
+                        'type' => 'text',
+                        'instructions' => 'e.g., "£30,000 - £45,000", "Competitive", "DOE"',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_experience_level',
+                        'label' => 'Experience Level',
+                        'name' => 'experience_level',
+                        'type' => 'select',
+                        'choices' => array(
+                            'entry' => 'Entry Level',
+                            'junior' => 'Junior',
+                            'mid' => 'Mid Level',
+                            'senior' => 'Senior',
+                            'lead' => 'Lead/Principal',
+                            'director' => 'Director',
+                        ),
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_application_deadline',
+                        'label' => 'Application Deadline',
+                        'name' => 'application_deadline',
+                        'type' => 'date_picker',
+                        'return_format' => 'Y-m-d',
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // JOB REQUIREMENTS
+            array(
+                'key' => 'field_job_listing_requirements',
+                'label' => 'Requirements & Qualifications',
+                'name' => 'requirements',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_job_listing_required_skills',
+                        'label' => 'Required Skills',
+                        'name' => 'required_skills',
+                        'type' => 'repeater',
+                        'instructions' => 'Key skills and requirements for this position',
+                        'min' => 1,
+                        'max' => 10,
+                        'layout' => 'table',
+                        'button_label' => 'Add Skill',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_job_skill_name',
+                                'label' => 'Skill',
+                                'name' => 'skill',
+                                'type' => 'text',
+                                'show_in_graphql' => 1,
+                            ),
+                            array(
+                                'key' => 'field_job_skill_level',
+                                'label' => 'Required Level',
+                                'name' => 'level',
+                                'type' => 'select',
+                                'choices' => array(
+                                    'basic' => 'Basic',
+                                    'intermediate' => 'Intermediate',
+                                    'advanced' => 'Advanced',
+                                    'expert' => 'Expert',
+                                ),
+                                'show_in_graphql' => 1,
+                            ),
+                        ),
+                    ),
+                    array(
+                        'key' => 'field_job_listing_responsibilities',
+                        'label' => 'Key Responsibilities',
+                        'name' => 'responsibilities',
+                        'type' => 'wysiwyg',
+                        'instructions' => 'Main duties and responsibilities',
+                        'toolbar' => 'basic',
+                        'media_upload' => 0,
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // APPLICATION PROCESS
+            array(
+                'key' => 'field_job_listing_application',
+                'label' => 'Application Process',
+                'name' => 'application_process',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_job_listing_application_email',
+                        'label' => 'Application Email',
+                        'name' => 'application_email',
+                        'type' => 'email',
+                        'instructions' => 'Email for job applications',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_application_url',
+                        'label' => 'Application URL',
+                        'name' => 'application_url',
+                        'type' => 'url',
+                        'instructions' => 'External application form URL',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_application_instructions',
+                        'label' => 'Application Instructions',
+                        'name' => 'application_instructions',
+                        'type' => 'textarea',
+                        'instructions' => 'Special instructions for applicants',
+                        'rows' => 4,
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // JOB STATUS
+            array(
+                'key' => 'field_job_listing_status',
+                'label' => 'Job Status',
+                'name' => 'job_status',
+                'type' => 'select',
+                'instructions' => 'Current status of this job listing',
+                'choices' => array(
+                    'open' => 'Open - Accepting Applications',
+                    'urgent' => 'Urgent - Immediate Start',
+                    'closing_soon' => 'Closing Soon',
+                    'filled' => 'Position Filled',
+                    'on_hold' => 'On Hold',
+                ),
+                'default_value' => 'open',
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'job_listings',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Content fields for job listings',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'jobListingFields',
+    ));
+}
+
+// ============================================================================
+// TECHNOLOGIES ACF FIELD GROUPS
+// ============================================================================
+
+add_action('acf/init', 'cda_add_technologies_fields');
+function cda_add_technologies_fields() {
+    
+    // Technologies Content Field Group
+    acf_add_local_field_group(array(
+        'key' => 'group_technologies_content',
+        'title' => 'Technology Information',
+        'fields' => array(
+            
+            // TECH DETAILS
+            array(
+                'key' => 'field_technology_details',
+                'label' => 'Technology Details',
+                'name' => 'technology_details',
+                'type' => 'group',
+                'instructions' => 'Information about this technology',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'technologyDetails',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_technology_logo',
+                        'label' => 'Logo/Icon',
+                        'name' => 'logo',
+                        'type' => 'image',
+                        'instructions' => 'Technology logo or icon',
+                        'return_format' => 'array',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_technology_website_url',
+                        'label' => 'Official Website',
+                        'name' => 'website_url',
+                        'type' => 'url',
+                        'instructions' => 'Link to the official website',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_technology_version',
+                        'label' => 'Version We Use',
+                        'name' => 'version',
+                        'type' => 'text',
+                        'instructions' => 'Current version we use (if applicable)',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_technology_proficiency',
+                        'label' => 'Our Proficiency Level',
+                        'name' => 'proficiency',
+                        'type' => 'select',
+                        'choices' => array(
+                            'learning' => 'Learning',
+                            'competent' => 'Competent',
+                            'proficient' => 'Proficient',
+                            'expert' => 'Expert',
+                            'specialist' => 'Specialist',
+                        ),
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // USAGE INFO
+            array(
+                'key' => 'field_technology_usage',
+                'label' => 'Usage Information',
+                'name' => 'usage_info',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_technology_use_cases',
+                        'label' => 'What We Use It For',
+                        'name' => 'use_cases',
+                        'type' => 'textarea',
+                        'instructions' => 'Brief description of how we use this technology',
+                        'rows' => 3,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_technology_benefits',
+                        'label' => 'Key Benefits',
+                        'name' => 'benefits',
+                        'type' => 'repeater',
+                        'instructions' => 'Main benefits of using this technology',
+                        'min' => 0,
+                        'max' => 5,
+                        'layout' => 'table',
+                        'button_label' => 'Add Benefit',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_technology_benefit_text',
+                                'label' => 'Benefit',
+                                'name' => 'benefit',
+                                'type' => 'text',
+                                'show_in_graphql' => 1,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            
+            // PORTFOLIO CONNECTION
+            array(
+                'key' => 'field_technology_projects',
+                'label' => 'Related Projects',
+                'name' => 'related_projects',
+                'type' => 'post_object',
+                'instructions' => 'Case studies or services that use this technology',
+                'post_type' => array('case_studies', 'services'),
+                'multiple' => 1,
+                'max' => 5,
+                'return_format' => 'object',
+                'show_in_graphql' => 1,
+            ),
+            
+            // FEATURED FLAG
+            array(
+                'key' => 'field_technology_featured',
+                'label' => 'Featured Technology',
+                'name' => 'featured',
+                'type' => 'true_false',
+                'instructions' => 'Mark as featured to show prominently',
+                'default_value' => 0,
+                'ui' => 1,
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'technologies',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Information fields for technologies',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'technologyFields',
     ));
 }
 

@@ -1,3 +1,42 @@
+# BEGIN Security Rules
+# Disable directory browsing
+Options -Indexes
+
+# Force HTTPS and non-www (will activate on production)
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Force HTTPS (skip on localhost)
+RewriteCond %{HTTP_HOST} !^localhost
+RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Redirect www to non-www (skip on localhost)
+RewriteCond %{HTTP_HOST} !^localhost
+RewriteCond %{HTTP_HOST} !^127\.0\.0\.1
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# Protect sensitive files
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
+
+<files .htaccess>
+order allow,deny
+deny from all
+</files>
+
+# Block XML-RPC
+<files xmlrpc.php>
+order deny,allow
+deny from all
+</files>
+# END Security Rules
+
 # BEGIN W3TC Browser Cache
 <IfModule mod_mime.c>
     AddType text/css .css
@@ -161,5 +200,11 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/index.php [L]
 </IfModule>
+
+# BEGIN 301 Redirects
+# Add redirects here from Excel file during go-live
+# Example format:
+# Redirect 301 /old-page https://cda.group/new-page
+# END 301 Redirects
 
 # END WordPress
