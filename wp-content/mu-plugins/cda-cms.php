@@ -237,7 +237,7 @@ function cda_add_acf_field_groups() {
                         'key' => 'field_accordion_description',
                         'label' => 'Description',
                         'name' => 'description',
-                        'type' => 'wysiwyg', // FIXED: Changed from 'text' to 'wysiwyg'
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     ),
                     array(
@@ -431,7 +431,7 @@ function cda_add_about_us_fields() {
             ),
             array(
                 'key' => 'field_who_we_are_section',
-                'label' => 'Who We Are – Your Digital Partner',
+                'label' => 'Who We Are â€" Your Digital Partner',
                 'name' => 'who_we_are_section',
                 'type' => 'group',
                 'show_in_graphql' => 1,
