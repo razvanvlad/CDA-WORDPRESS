@@ -1016,6 +1016,208 @@ function cda_add_global_blocks() {
             ),
             
             // ============================================================================
+            // VALUES BLOCK - Global "Our Values" content
+            // ============================================================================
+            array(
+                'key' => 'field_global_values_block',
+                'label' => 'Values Block',
+                'name' => 'values_block',
+                'type' => 'group',
+                'instructions' => 'Global Values content that can be used across all pages',
+                'required' => false,
+                'conditional_logic' => false,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'valuesBlock',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_values_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Our Values',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_values_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'The Foundation Of Our Work',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_values_cards',
+                        'label' => 'Value Cards',
+                        'name' => 'cards',
+                        'type' => 'repeater',
+                        'instructions' => 'Add value cards with numbers, titles, descriptions and images',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'collapsed' => '',
+                        'min' => 0,
+                        'max' => 0,
+                        'layout' => 'table',
+                        'button_label' => 'Add Value Card',
+                        'show_in_graphql' => 1,
+                        'rows_per_page' => 20,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_value_card_number',
+                                'label' => 'Card Number',
+                                'name' => 'card_number',
+                                'type' => 'number',
+                                'instructions' => 'Card order number for sorting',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '15',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'min' => 1,
+                                'max' => 99,
+                                'step' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_values_cards'
+                            ),
+                            array(
+                                'key' => 'field_global_value_card_title',
+                                'label' => 'Title',
+                                'name' => 'title',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '25',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'e.g., Innovation',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_values_cards'
+                            ),
+                            array(
+                                'key' => 'field_global_value_card_description',
+                                'label' => 'Description',
+                                'name' => 'description',
+                                'type' => 'textarea',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '35',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Describe this value...',
+                                'maxlength' => '',
+                                'rows' => 4,
+                                'new_lines' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_values_cards'
+                            ),
+                            array(
+                                'key' => 'field_global_value_card_image',
+                                'label' => 'Image',
+                                'name' => 'image',
+                                'type' => 'image',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '25',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'return_format' => 'array',
+                                'preview_size' => 'medium',
+                                'library' => 'all',
+                                'min_width' => '',
+                                'min_height' => '',
+                                'min_size' => '',
+                                'max_width' => '',
+                                'max_height' => '',
+                                'max_size' => '',
+                                'mime_types' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_values_cards'
+                            )
+                        )
+                    ),
+                    array(
+                        'key' => 'field_global_values_corner_image',
+                        'label' => 'Corner Image',
+                        'name' => 'corner_image',
+                        'type' => 'image',
+                        'instructions' => 'Optional decorative image for bottom-right corner',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                        'show_in_graphql' => 1
+                    )
+                )
+            ),
+            
+            // ============================================================================
             // TECHNOLOGIES SHOWCASE BLOCK - Global technologies showcase
             // ============================================================================
             array(
