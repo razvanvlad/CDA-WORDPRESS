@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Include ACF GraphQL Configuration
+require_once get_template_directory() . '/../cda-theme/acf-graphql-config.php';
+
 // Theme setup
 function cdatheme_setup() {
     // Add theme support
