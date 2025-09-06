@@ -1389,6 +1389,157 @@ function cda_add_global_blocks() {
             ),
             
             // ============================================================================
+            // TECHNOLOGIES SLIDER BLOCK - Global technologies slider with logos
+            // ============================================================================
+            array(
+                'key' => 'field_global_technologies_slider_block',
+                'label' => 'Technologies Slider Block',
+                'name' => 'technologies_slider_block',
+                'type' => 'group',
+                'instructions' => 'Global Technologies slider with logos that can be used across all pages',
+                'required' => false,
+                'conditional_logic' => false,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'technologiesSliderBlock',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_tech_slider_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Our Technology Stack',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_tech_slider_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Technologies We Master',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_tech_slider_logos',
+                        'label' => 'Technology Logos',
+                        'name' => 'logos',
+                        'type' => 'repeater',
+                        'instructions' => 'Add technology logos for the slider',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'collapsed' => '',
+                        'min' => 0,
+                        'max' => 0,
+                        'layout' => 'table',
+                        'button_label' => 'Add Technology Logo',
+                        'show_in_graphql' => 1,
+                        'rows_per_page' => 20,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_tech_logo_image',
+                                'label' => 'Logo Image',
+                                'name' => 'image',
+                                'type' => 'image',
+                                'instructions' => '',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '40',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'return_format' => 'array',
+                                'preview_size' => 'medium',
+                                'library' => 'all',
+                                'min_width' => '',
+                                'min_height' => '',
+                                'min_size' => '',
+                                'max_width' => '',
+                                'max_height' => '',
+                                'max_size' => '',
+                                'mime_types' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_tech_slider_logos'
+                            ),
+                            array(
+                                'key' => 'field_global_tech_logo_name',
+                                'label' => 'Technology Name',
+                                'name' => 'name',
+                                'type' => 'text',
+                                'instructions' => 'Name of the technology (for alt text)',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '30',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'e.g., React, Node.js, WordPress',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_tech_slider_logos'
+                            ),
+                            array(
+                                'key' => 'field_global_tech_logo_url',
+                                'label' => 'Link URL',
+                                'name' => 'url',
+                                'type' => 'url',
+                                'instructions' => 'Optional link to technology website',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '30',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'https://...',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_tech_slider_logos'
+                            )
+                        )
+                    )
+                )
+            ),
+            
+            // ============================================================================
             // SHOWREEL BLOCK - Global video showreel with client logos
             // ============================================================================
             array(
@@ -1821,6 +1972,226 @@ function cda_add_global_blocks() {
                         'max_height' => '',
                         'max_size' => '',
                         'mime_types' => '',
+                        'show_in_graphql' => 1
+                    )
+                )
+            ),
+            
+            // ============================================================================
+            // PHOTO FRAME BLOCK - Global photo frame with layered design
+            // ============================================================================
+            array(
+                'key' => 'field_global_photo_frame_block',
+                'label' => 'Photo Frame Block',
+                'name' => 'photo_frame_block',
+                'type' => 'group',
+                'instructions' => 'Global Photo Frame block with layered frame design that can be used across all pages',
+                'required' => false,
+                'conditional_logic' => false,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_photo_frame_image',
+                        'label' => 'Frame Image',
+                        'name' => 'frame_image',
+                        'type' => 'image',
+                        'instructions' => 'Upload the decorative frame image that will overlay the main image',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_inner_image',
+                        'label' => 'Inner Image/GIF',
+                        'name' => 'inner_image',
+                        'type' => 'image',
+                        'instructions' => 'Upload the main image or GIF that will sit inside the frame',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => 'jpg,jpeg,png,gif',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Who we are',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Your Digital Partner',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_text',
+                        'label' => 'Text Content',
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'instructions' => 'Main text content - will expand to show all text without cutting off',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'Enter your detailed text content here...',
+                        'maxlength' => '',
+                        'rows' => 5,
+                        'new_lines' => 'br',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_button_title',
+                        'label' => 'Button Title',
+                        'name' => 'button_title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '33.33',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'About Us',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_button_url',
+                        'label' => 'Button URL',
+                        'name' => 'button_url',
+                        'type' => 'url',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '33.33',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => '/about',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_button_target',
+                        'label' => 'Button Target',
+                        'name' => 'button_target',
+                        'type' => 'select',
+                        'instructions' => 'Choose whether the link opens in current or new tab',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '33.33',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'choices' => array(
+                            '_self' => 'Current Tab',
+                            '_blank' => 'New Tab'
+                        ),
+                        'default_value' => '_self',
+                        'allow_null' => 0,
+                        'multiple' => 0,
+                        'ui' => 0,
+                        'return_format' => 'value',
+                        'ajax' => 0,
+                        'placeholder' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_photo_frame_arrow_illustration',
+                        'label' => 'Arrow Illustration',
+                        'name' => 'arrow_illustration',
+                        'type' => 'image',
+                        'instructions' => 'Upload arrow illustration image, video, or GIF',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'thumbnail',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => 'jpg,jpeg,png,gif,svg,mp4,webm',
                         'show_in_graphql' => 1
                     )
                 )
