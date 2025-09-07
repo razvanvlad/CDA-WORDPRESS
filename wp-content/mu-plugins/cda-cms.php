@@ -683,7 +683,7 @@ if (function_exists('acf_add_options_page')) {
 // GLOBAL BLOCKS - Why CDA and Approach blocks for reuse across pages
 // ============================================================================
 
-add_action('acf/init', 'cda_add_global_blocks');
+// add_action('acf/init', 'cda_add_global_blocks');
 function cda_add_global_blocks() {
     // Global Shared Content Field Group
     acf_add_local_field_group(array(
@@ -2205,6 +2205,13 @@ function cda_add_global_blocks() {
                     'operator' => '==',
                     'value' => 'global-content'
                 )
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
             )
         ),
         'menu_order' => 0,
@@ -2218,6 +2225,879 @@ function cda_add_global_blocks() {
         'show_in_rest' => 0,
         'show_in_graphql' => 1,
         'graphql_field_name' => 'globalSharedContent',
+        'map_graphql_types_from_location_rules' => 1,
+        'graphql_types' => array('Page', 'GlobalOptions')
+    ));
+    
+    // Debug: Log PhotoFrame Block registration
+    error_log('CDA DEBUG: PhotoFrame Block field group registered successfully');
+}
+
+// ============================================================================
+// WHY CDA BLOCK - Global content block
+// ============================================================================
+
+// add_action('acf/init', 'cda_add_why_cda_global');
+function cda_add_why_cda_global() {
+    acf_add_local_field_group(array(
+        'key' => 'group_global_why_cda',
+        'title' => 'Why CDA Block',
+        'fields' => array(
+            array(
+                'key' => 'field_global_why_cda_group',
+                'label' => 'Why CDA Block',
+                'name' => 'why_cda_block',
+                'type' => 'group',
+                'instructions' => 'Global Why CDA content that can be used across pages',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'whyCdaBlock',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_why_cda_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'Why CDA',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_why_cda_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '50',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => 'What Makes Us The Right Choice?',
+                        'placeholder' => '',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_why_cda_cards',
+                        'label' => 'Cards',
+                        'name' => 'cards',
+                        'type' => 'repeater',
+                        'instructions' => 'Add cards explaining why customers should choose CDA',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'collapsed' => '',
+                        'min' => 0,
+                        'max' => 0,
+                        'layout' => 'table',
+                        'button_label' => 'Add Card',
+                        'show_in_graphql' => 1,
+                        'rows_per_page' => 20,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_why_card_title',
+                                'label' => 'Title',
+                                'name' => 'title',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '30',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'e.g., Expert Team',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_why_cda_cards'
+                            ),
+                            array(
+                                'key' => 'field_global_why_card_description',
+                                'label' => 'Description',
+                                'name' => 'description',
+                                'type' => 'textarea',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '45',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Explain this benefit...',
+                                'maxlength' => '',
+                                'rows' => 4,
+                                'new_lines' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_why_cda_cards'
+                            ),
+                            array(
+                                'key' => 'field_global_why_card_image',
+                                'label' => 'Image',
+                                'name' => 'image',
+                                'type' => 'image',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '25',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'return_format' => 'array',
+                                'preview_size' => 'medium',
+                                'library' => 'all',
+                                'min_width' => '',
+                                'min_height' => '',
+                                'min_size' => '',
+                                'max_width' => '',
+                                'max_height' => '',
+                                'max_size' => '',
+                                'mime_types' => '',
+                                'show_in_graphql' => 1,
+                                'parent_repeater' => 'field_global_why_cda_cards'
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'whyCdaBlock',
+        'map_graphql_types_from_location_rules' => 1,
+        'graphql_types' => array('Page', 'GlobalOptions')
+    ));
+}
+
+// ============================================================================
+// SERVICES ACCORDION - Global content block
+// ============================================================================
+
+// add_action('acf/init', 'cda_add_services_accordion_global');
+function cda_add_services_accordion_global() {
+    acf_add_local_field_group(array(
+        'key' => 'group_global_services_accordion',
+        'title' => 'Services Accordion',
+        'fields' => array(
+            array(
+                'key' => 'field_global_services_accordion_group',
+                'label' => 'Services Accordion Block',
+                'name' => 'services_accordion_block',
+                'type' => 'group',
+                'instructions' => 'Global Services Accordion content that can be used across pages',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_services_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'What We Do',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_services_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'Our Services',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_services_illustration',
+                        'label' => 'Illustration',
+                        'name' => 'illustration',
+                        'type' => 'image',
+                        'instructions' => 'Upload illustration image, video, or GIF',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => 'jpg,jpeg,png,gif,svg,mp4,webm',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_services_accordion',
+                        'label' => 'Services Accordion',
+                        'name' => 'services_accordion',
+                        'type' => 'relationship',
+                        'instructions' => 'Select services from the Services post type. Title and linked page will be populated automatically. You can add intro text manually.',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'post_type' => array('service'),
+                        'taxonomy' => '',
+                        'filters' => array('search', 'taxonomy'),
+                        'elements' => '',
+                        'min' => 0,
+                        'max' => '',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'servicesAccordionBlock',
+        'map_graphql_types_from_location_rules' => 1,
+        'graphql_types' => array('Page', 'GlobalOptions')
+    ));
+}
+
+// ============================================================================
+// STATS & IMAGE - Global content block
+// ============================================================================
+
+// add_action('acf/init', 'cda_add_stats_image_global');
+function cda_add_stats_image_global() {
+    acf_add_local_field_group(array(
+        'key' => 'group_global_stats_image',
+        'title' => 'Stats & Image',
+        'fields' => array(
+            array(
+                'key' => 'field_global_stats_image_group',
+                'label' => 'Stats & Image Block',
+                'name' => 'stats_image_block',
+                'type' => 'group',
+                'instructions' => 'Global Stats & Image content that can be used across pages',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_stats_repeater',
+                        'label' => 'Stats (4 maximum)',
+                        'name' => 'stats',
+                        'type' => 'repeater',
+                        'instructions' => 'Add up to 4 statistics. Each stat will have a custom CSS class for color underlines.',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'collapsed' => '',
+                        'min' => 0,
+                        'max' => 4,
+                        'layout' => 'table',
+                        'button_label' => 'Add Stat',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_stat_number',
+                                'label' => 'Stat Number',
+                                'name' => 'stat_number',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '30',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => '100+',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1
+                            ),
+                            array(
+                                'key' => 'field_global_stat_text',
+                                'label' => 'Stat Text',
+                                'name' => 'stat_text',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '40',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Projects Completed',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1
+                            ),
+                            array(
+                                'key' => 'field_global_stat_color_class',
+                                'label' => 'Color Class',
+                                'name' => 'color_class',
+                                'type' => 'select',
+                                'instructions' => 'Select color class for underline styling',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '30',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'choices' => array(
+                                    'stat-color-1' => 'Color 1',
+                                    'stat-color-2' => 'Color 2',
+                                    'stat-color-3' => 'Color 3',
+                                    'stat-color-4' => 'Color 4'
+                                ),
+                                'default_value' => 'stat-color-1',
+                                'allow_null' => 0,
+                                'multiple' => 0,
+                                'ui' => 0,
+                                'return_format' => 'value',
+                                'ajax' => 0,
+                                'placeholder' => '',
+                                'show_in_graphql' => 1
+                            )
+                        )
+                    ),
+                    array(
+                        'key' => 'field_global_stats_text',
+                        'label' => 'Text',
+                        'name' => 'text',
+                        'type' => 'textarea',
+                        'instructions' => 'Text block will expand to show all content - it must not be cut off',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'Enter descriptive text about your statistics...',
+                        'maxlength' => '',
+                        'rows' => 4,
+                        'new_lines' => 'wpautop',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_stats_button',
+                        'label' => 'Button',
+                        'name' => 'button',
+                        'type' => 'group',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'layout' => 'block',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_stats_button_title',
+                                'label' => 'Button Title',
+                                'name' => 'title',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'Learn More',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1
+                            ),
+                            array(
+                                'key' => 'field_global_stats_button_link',
+                                'label' => 'Button Link',
+                                'name' => 'link',
+                                'type' => 'page_link',
+                                'instructions' => 'Select page to link to',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'post_type' => array('page'),
+                                'taxonomy' => '',
+                                'allow_null' => 1,
+                                'allow_archives' => 1,
+                                'multiple' => 0,
+                                'show_in_graphql' => 1
+                            )
+                        )
+                    ),
+                    array(
+                        'key' => 'field_global_stats_illustration',
+                        'label' => 'Illustration',
+                        'name' => 'illustration',
+                        'type' => 'image',
+                        'instructions' => 'Upload illustration image, video, or GIF',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => 'jpg,jpeg,png,gif,svg,mp4,webm',
+                        'show_in_graphql' => 1
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'statsImageBlock',
+        'map_graphql_types_from_location_rules' => 1,
+        'graphql_types' => array('Page', 'GlobalOptions')
+    ));
+}
+
+// ============================================================================
+// SERVICES ACCORDION - Global content block
+// ============================================================================
+
+
+
+// ============================================================================
+// LOCATIONS WITH IMAGE - Global content block
+// ============================================================================
+
+// add_action('acf/init', 'cda_add_locations_image_global');
+function cda_add_locations_image_global() {
+    acf_add_local_field_group(array(
+        'key' => 'group_global_locations_image',
+        'title' => 'Locations with Image',
+        'fields' => array(
+            array(
+                'key' => 'field_global_locations_image_group',
+                'label' => 'Locations with Image Block',
+                'name' => 'locations_image_block',
+                'type' => 'group',
+                'instructions' => 'Global Locations with Image content that can be used across pages',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_global_locations_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'Where We Are',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_locations_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'instructions' => '',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'default_value' => '',
+                        'placeholder' => 'Our Global Locations',
+                        'prepend' => '',
+                        'append' => '',
+                        'maxlength' => '',
+                        'show_in_graphql' => 1
+                    ),
+                    array(
+                        'key' => 'field_global_locations_countries',
+                        'label' => 'Countries',
+                        'name' => 'countries',
+                        'type' => 'repeater',
+                        'instructions' => 'Add countries with their office locations and contact details',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'collapsed' => 'field_global_country_name',
+                        'min' => 0,
+                        'max' => '',
+                        'layout' => 'block',
+                        'button_label' => 'Add Country',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_global_country_name',
+                                'label' => 'Country Name',
+                                'name' => 'country_name',
+                                'type' => 'text',
+                                'instructions' => '',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'default_value' => '',
+                                'placeholder' => 'United Kingdom',
+                                'prepend' => '',
+                                'append' => '',
+                                'maxlength' => '',
+                                'show_in_graphql' => 1
+                            ),
+                            array(
+                                'key' => 'field_global_country_offices',
+                                'label' => 'Offices',
+                                'name' => 'offices',
+                                'type' => 'repeater',
+                                'instructions' => 'Add up to 2 offices per country. Empty fields will be hidden automatically.',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'collapsed' => 'field_global_office_name',
+                                'min' => 0,
+                                'max' => 2,
+                                'layout' => 'table',
+                                'button_label' => 'Add Office',
+                                'show_in_graphql' => 1,
+                                'sub_fields' => array(
+                                    array(
+                                        'key' => 'field_global_office_name',
+                                        'label' => 'Office Name',
+                                        'name' => 'name',
+                                        'type' => 'text',
+                                        'instructions' => '',
+                                        'required' => 0,
+                                        'conditional_logic' => 0,
+                                        'wrapper' => array(
+                                            'width' => '25',
+                                            'class' => '',
+                                            'id' => ''
+                                        ),
+                                        'default_value' => '',
+                                        'placeholder' => 'London Office',
+                                        'prepend' => '',
+                                        'append' => '',
+                                        'maxlength' => '',
+                                        'show_in_graphql' => 1
+                                    ),
+                                    array(
+                                        'key' => 'field_global_office_address',
+                                        'label' => 'Address',
+                                        'name' => 'address',
+                                        'type' => 'textarea',
+                                        'instructions' => '',
+                                        'required' => 0,
+                                        'conditional_logic' => 0,
+                                        'wrapper' => array(
+                                            'width' => '25',
+                                            'class' => '',
+                                            'id' => ''
+                                        ),
+                                        'default_value' => '',
+                                        'placeholder' => '123 Business St\nLondon, UK',
+                                        'maxlength' => '',
+                                        'rows' => 3,
+                                        'new_lines' => 'br',
+                                        'show_in_graphql' => 1
+                                    ),
+                                    array(
+                                        'key' => 'field_global_office_email',
+                                        'label' => 'Email',
+                                        'name' => 'email',
+                                        'type' => 'email',
+                                        'instructions' => '',
+                                        'required' => 0,
+                                        'conditional_logic' => 0,
+                                        'wrapper' => array(
+                                            'width' => '25',
+                                            'class' => '',
+                                            'id' => ''
+                                        ),
+                                        'default_value' => '',
+                                        'placeholder' => 'london@company.com',
+                                        'prepend' => '',
+                                        'append' => '',
+                                        'show_in_graphql' => 1
+                                    ),
+                                    array(
+                                        'key' => 'field_global_office_phone',
+                                        'label' => 'Phone',
+                                        'name' => 'phone',
+                                        'type' => 'text',
+                                        'instructions' => '',
+                                        'required' => 0,
+                                        'conditional_logic' => 0,
+                                        'wrapper' => array(
+                                            'width' => '25',
+                                            'class' => '',
+                                            'id' => ''
+                                        ),
+                                        'default_value' => '',
+                                        'placeholder' => '+44 20 1234 5678',
+                                        'prepend' => '',
+                                        'append' => '',
+                                        'maxlength' => '',
+                                        'show_in_graphql' => 1
+                                    )
+                                )
+                            )
+                        )
+                    ),
+                    array(
+                        'key' => 'field_global_locations_illustration',
+                        'label' => 'Illustration',
+                        'name' => 'illustration',
+                        'type' => 'image',
+                        'instructions' => 'Upload illustration image, video, or GIF',
+                        'required' => 0,
+                        'conditional_logic' => 0,
+                        'wrapper' => array(
+                            'width' => '',
+                            'class' => '',
+                            'id' => ''
+                        ),
+                        'return_format' => 'array',
+                        'preview_size' => 'medium',
+                        'library' => 'all',
+                        'min_width' => '',
+                        'min_height' => '',
+                        'min_size' => '',
+                        'max_width' => '',
+                        'max_height' => '',
+                        'max_size' => '',
+                        'mime_types' => 'jpg,jpeg,png,gif,svg,mp4,webm',
+                        'show_in_graphql' => 1
+                    )
+                )
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'options_page',
+                    'operator' => '==',
+                    'value' => 'global-content'
+                )
+            ),
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => '',
+        'show_in_rest' => 0,
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'locationsImageBlock',
         'map_graphql_types_from_location_rules' => 1,
         'graphql_types' => array('Page', 'GlobalOptions')
     ));
@@ -2302,7 +3182,7 @@ function cda_add_seo_field_groups() {
 // HOMEPAGE CONTENT - Page-specific fields for homepage
 // ============================================================================
 
-add_action('acf/init', 'cda_add_homepage_fields');
+// add_action('acf/init', 'cda_add_homepage_fields');
 function cda_add_homepage_fields() {
     
     // Homepage Content
@@ -2360,211 +3240,151 @@ function cda_add_homepage_fields() {
                 )
             ),
             
-            // Who We Are Section
-            array(
-                'key' => 'field_who_we_are_section',
-                'label' => 'Who We Are Section',
-                'name' => 'whoWeAreSection',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_who_we_are_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_who_we_are_subtitle',
-                        'label' => 'Subtitle',
-                        'name' => 'subtitle',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_who_we_are_image',
-                        'label' => 'Image',
-                        'name' => 'image',
-                        'type' => 'image',
-                        'return_format' => 'object',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_who_we_are_button',
-                        'label' => 'Button',
-                        'name' => 'button',
-                        'type' => 'link',
-                        'show_in_graphql' => 1,
-                    )
-                )
-            ),
+
             
-            // Services Accordion
+            // Flexible Content Repeater
             array(
-                'key' => 'field_services_accordion',
-                'label' => 'Services Accordion',
-                'name' => 'services_accordion',
-                'type' => 'repeater',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_accordion_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'required' => 1,
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_accordion_description',
-                        'label' => 'Description',
-                        'name' => 'description',
-                        'type' => 'wysiwyg',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_accordion_link',
-                        'label' => 'Link',
-                        'name' => 'link',
-                        'type' => 'link',
-                        'show_in_graphql' => 1,
-                    )
-                )
-            ),
-            
-            // Other homepage sections...
-            array(
-                'key' => 'field_platforms_section',
-                'label' => 'Platforms Section',
-                'name' => 'platforms_section',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_platforms_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_platforms_subtitle',
-                        'label' => 'Subtitle',
-                        'name' => 'subtitle',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_platforms_logos',
-                        'label' => 'Logos',
-                        'name' => 'logos',
-                        'type' => 'repeater',
-                        'show_in_graphql' => 1,
+                'key' => 'field_homepage_content_blocks',
+                'label' => 'Content Blocks',
+                'name' => 'content_blocks',
+                'type' => 'flexible_content',
+                'instructions' => 'Add content blocks to build your homepage. You can use global blocks or individual sections.',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => ''
+                ),
+                'layouts' => array(
+                    // Global Block Layout
+                    'layout_global_block' => array(
+                        'key' => 'layout_global_block',
+                        'name' => 'global_block',
+                        'label' => 'Global Block',
+                        'display' => 'block',
                         'sub_fields' => array(
                             array(
-                                'key' => 'field_logo_image',
-                                'label' => 'Logo Image',
-                                'name' => 'logo',
-                                'type' => 'image',
-                                'return_format' => 'object',
-                                'show_in_graphql' => 1,
+                                'key' => 'field_global_block_type',
+                                'label' => 'Global Block Type',
+                                'name' => 'global_block_type',
+                                'type' => 'select',
+                                'instructions' => 'Select which global block to use',
+                                'required' => 1,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'choices' => array(
+                                    'image_frame_text_cta' => 'Image & Frame Left, Text & CTA Right',
+                                    'services_accordion' => 'Services Accordion',
+                                    'technologies_slider' => 'Technologies Slider',
+                                    'values' => 'Values',
+                                    'showreel' => 'Showreel',
+                                    'stats_image' => 'Stats & Image',
+                                    'locations_image' => 'Locations with Image',
+                                    'news_carousel' => 'News Carousel'
+                                ),
+                                'default_value' => '',
+                                'allow_null' => 0,
+                                'multiple' => 0,
+                                'ui' => 1,
+                                'ajax' => 0,
+                                'return_format' => 'value',
+                                'placeholder' => '',
+                                'show_in_graphql' => 1
+                            ),
+                            array(
+                                'key' => 'field_use_global_content',
+                                'label' => 'Use Global Content',
+                                'name' => 'use_global_content',
+                                'type' => 'true_false',
+                                'instructions' => 'Use content from Global Content settings, or override with custom content for this page',
+                                'required' => 0,
+                                'conditional_logic' => 0,
+                                'wrapper' => array(
+                                    'width' => '50',
+                                    'class' => '',
+                                    'id' => ''
+                                ),
+                                'message' => '',
+                                'default_value' => 1,
+                                'ui' => 1,
+                                'ui_on_text' => 'Yes',
+                                'ui_off_text' => 'No',
+                                'show_in_graphql' => 1
                             )
-                        )
-                    )
-                )
-            ),
-            
-            // Values Section
-            array(
-                'key' => 'field_values_section',
-                'label' => 'Values Section',
-                'name' => 'values_section',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_values_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
+                        ),
+                        'min' => '',
+                        'max' => ''
                     ),
-                    array(
-                        'key' => 'field_values_items',
-                        'label' => 'Value Items',
-                        'name' => 'value_items',
-                        'type' => 'repeater',
-                        'show_in_graphql' => 1,
+                    // Case Studies Individual Layout
+                    'layout_case_studies' => array(
+                        'key' => 'layout_case_studies',
+                        'name' => 'case_studies',
+                        'label' => 'Case Studies (Individual)',
+                        'display' => 'block',
                         'sub_fields' => array(
                             array(
-                                'key' => 'field_value_title',
-                                'label' => 'Title',
-                                'name' => 'title',
+                                'key' => 'field_case_studies_subtitle',
+                                'label' => 'Subtitle',
+                                'name' => 'subtitle',
                                 'type' => 'text',
+                                'instructions' => '',
+                                'required' => 0,
+                                'default_value' => '',
+                                'placeholder' => 'Our Work',
                                 'show_in_graphql' => 1,
                             ),
                             array(
-                                'key' => 'field_value_description',
-                                'label' => 'Description',
-                                'name' => 'description',
+                                'key' => 'field_case_studies_title',
+                                'label' => 'Title',
+                                'name' => 'title',
                                 'type' => 'text',
+                                'instructions' => '',
+                                'required' => 0,
+                                'default_value' => '',
+                                'placeholder' => 'Case Studies',
+                                'show_in_graphql' => 1,
+                            ),
+                            array(
+                                'key' => 'field_case_studies_hub_link',
+                                'label' => 'Knowledge Hub Link',
+                                'name' => 'hub_link',
+                                'type' => 'url',
+                                'instructions' => 'Link to Knowledge Hub filtered by Case Studies',
+                                'required' => 0,
+                                'default_value' => '',
+                                'placeholder' => '/knowledge-hub?filter=case-studies',
+                                'show_in_graphql' => 1,
+                            ),
+                            array(
+                                'key' => 'field_case_studies_selected',
+                                'label' => 'Selected Case Studies',
+                                'name' => 'selected_case_studies',
+                                'type' => 'relationship',
+                                'instructions' => 'Select 2 case studies to show on homepage',
+                                'required' => 0,
+                                'post_type' => array('case_study'),
+                                'taxonomy' => '',
+                                'filters' => array('search'),
+                                'elements' => '',
+                                'min' => 0,
+                                'max' => 2,
+                                'return_format' => 'object',
                                 'show_in_graphql' => 1,
                             )
-                        )
+                        ),
+                        'min' => '',
+                        'max' => ''
                     )
-                )
-            ),
-            
-            // Case Studies Section
-            array(
-                'key' => 'field_case_studies_section',
-                'label' => 'Case Studies Section',
-                'name' => 'case_studies_section',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_case_studies_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_case_studies',
-                        'label' => 'Case Studies',
-                        'name' => 'case_studies',
-                        'type' => 'relationship',
-                        'post_type' => array('case_study'),
-                        'show_in_graphql' => 1,
-                    )
-                )
-            ),
-            
-            // Newsletter Section
-            array(
-                'key' => 'field_newsletter_section',
-                'label' => 'Newsletter Section',
-                'name' => 'newsletter_section',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_newsletter_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_newsletter_subtitle',
-                        'label' => 'Subtitle',
-                        'name' => 'subtitle',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    )
-                )
+                ),
+                'button_label' => 'Add Content Block',
+                'min' => '',
+                'max' => '',
+                'show_in_graphql' => 1
             )
         ),
         'location' => array(
@@ -2724,7 +3544,7 @@ function cda_add_about_us_fields() {
 // PAGE OVERRIDES - Allow pages to override global blocks (optional)
 // ============================================================================
 
-add_action('acf/init', 'cda_add_page_overrides');
+// add_action('acf/init', 'cda_add_page_overrides');
 function cda_add_page_overrides() {
     // Page-level overrides for global blocks
     acf_add_local_field_group(array(

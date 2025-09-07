@@ -201,10 +201,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /CDA-WEBSITE-PROJECT/CDA-WEBSITE/wordpress-backend/index.php [L]
 </IfModule>
 
-# BEGIN 301 Redirects
-# Add redirects here from Excel file during go-live
-# Example format:
-# Redirect 301 /old-page https://cda.group/new-page
-# END 301 Redirects
-
 # END WordPress
