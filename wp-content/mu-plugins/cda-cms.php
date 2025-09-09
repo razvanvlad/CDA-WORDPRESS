@@ -3411,9 +3411,8 @@ function cda_add_about_us_fields() {
     acf_add_local_field_group(array(
         'key' => 'group_about_us_page',
         'title' => 'About Us Page Content',
-        'fields' => array(
-            
-            // Content Page Header
+'fields' => array(
+            // Content Page Header (keep page-specific)
             array(
                 'key' => 'field_content_page_header',
                 'label' => 'Content Page Header',
@@ -3445,11 +3444,11 @@ function cda_add_about_us_fields() {
                     )
                 )
             ),
-            
-            // Who We Are Section
+
+            // Who We Are – Your Digital Partner (keep page-specific)
             array(
                 'key' => 'field_who_we_are_section_about',
-                'label' => 'Who We Are - Your Digital Partner',
+                'label' => 'Who We Are – Your Digital Partner',
                 'name' => 'who_we_are_section',
                 'type' => 'group',
                 'show_in_graphql' => 1,
@@ -3485,44 +3484,220 @@ function cda_add_about_us_fields() {
                     )
                 )
             ),
-            
-            // Why CDA Section (page-specific, different from global)
+
+            // Leadership Team (keep page-specific)
             array(
-                'key' => 'field_why_cda_section_about',
-                'label' => 'Why CDA (About Page)',
-                'name' => 'why_cda_section',
-                'type' => 'repeater',
+                'key' => 'field_leadership_section',
+                'label' => 'Leadership Team',
+                'name' => 'leadership_section',
+                'type' => 'group',
                 'show_in_graphql' => 1,
                 'sub_fields' => array(
                     array(
-                        'key' => 'field_usp_title',
-                        'label' => 'USP Title',
-                        'name' => 'title',
-                        'type' => 'wysiwyg',
+                        'key' => 'field_leader_image',
+                        'label' => 'Leader Image',
+                        'name' => 'image',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_name',
+                        'label' => 'Name',
+                        'name' => 'name',
+                        'type' => 'text',
                         'required' => 1,
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_usp_description',
-                        'label' => 'Description',
-                        'name' => 'description',
-                        'type' => 'wysiwyg',
+                        'key' => 'field_leader_position',
+                        'label' => 'Position',
+                        'name' => 'position',
+                        'type' => 'text',
+                        'required' => 1,
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_usp_icon',
-                        'label' => 'Icon',
-                        'name' => 'icon',
-                        'type' => 'image',
-                        'return_format' => 'object',
+                        'key' => 'field_leader_bio',
+                        'label' => 'Bio',
+                        'name' => 'bio',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     )
                 )
             ),
-            
-            // Rest of about us fields...
-            // (Keeping your existing about us fields here)
-            
+
+            // Global Content Selection (toggles)
+            array(
+                'key' => 'field_global_content_selection',
+                'label' => 'Global Content Selection',
+                'name' => 'global_content_selection',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'globalContentSelection',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_enable_image_frame',
+                        'label' => 'Enable Image Frame',
+                        'name' => 'enable_image_frame',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableImageFrame',
+                    ),
+                    array(
+                        'key' => 'field_enable_services_accordion',
+                        'label' => 'Enable Services Accordion',
+                        'name' => 'enable_services_accordion',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableServicesAccordion',
+                    ),
+                    array(
+                        'key' => 'field_enable_why_cda',
+                        'label' => 'Enable Why CDA',
+                        'name' => 'enable_why_cda',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableWhyCda',
+                    ),
+                    array(
+                        'key' => 'field_enable_showreel',
+                        'label' => 'Enable Showreel',
+                        'name' => 'enable_showreel',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableShowreel',
+                    ),
+                    array(
+                        'key' => 'field_enable_culture_gallery_slider',
+                        'label' => 'Enable Culture Gallery Slider',
+                        'name' => 'enable_culture_gallery_slider',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableCultureGallerySlider',
+                    ),
+                    array(
+                        'key' => 'field_enable_approach',
+                        'label' => 'Enable Approach',
+                        'name' => 'enable_approach',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableApproach',
+                    ),
+                    array(
+                        'key' => 'field_enable_full_video',
+                        'label' => 'Enable Full Video',
+                        'name' => 'enable_full_video',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableFullVideo',
+                    ),
+                    array(
+                        'key' => 'field_enable_join_our_team',
+                        'label' => 'Enable Join Our Team',
+                        'name' => 'enable_join_our_team',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableJoinOurTeam',
+                    ),
+                    array(
+                        'key' => 'field_enable_three_columns_with_icons',
+                        'label' => 'Enable 3 x Columns With Icons',
+                        'name' => 'enable_three_columns_with_icons',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableThreeColumnsWithIcons',
+                    ),
+                    array(
+                        'key' => 'field_enable_contact_form_left_image_right',
+                        'label' => 'Enable Contact Form Left, Image Right',
+                        'name' => 'enable_contact_form_left_image_right',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableContactFormLeftImageRight',
+                    ),
+                    array(
+                        'key' => 'field_enable_technologies_slider',
+                        'label' => 'Enable Technologies Slider',
+                        'name' => 'enable_technologies_slider',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableTechnologiesSlider',
+                    ),
+                    array(
+                        'key' => 'field_enable_values',
+                        'label' => 'Enable Values',
+                        'name' => 'enable_values',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableValues',
+                    ),
+                    array(
+                        'key' => 'field_enable_stats_image',
+                        'label' => 'Enable Stats Image',
+                        'name' => 'enable_stats_image',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableStatsImage',
+                    ),
+                    array(
+                        'key' => 'field_enable_locations_image',
+                        'label' => 'Enable Locations Image',
+                        'name' => 'enable_locations_image',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableLocationsImage',
+                    ),
+                    array(
+                        'key' => 'field_enable_news_carousel',
+                        'label' => 'Enable News Carousel',
+                        'name' => 'enable_news_carousel',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableNewsCarousel',
+                    ),
+                    array(
+                        'key' => 'field_enable_newsletter_signup',
+                        'label' => 'Enable Newsletter Signup',
+                        'name' => 'enable_newsletter_signup',
+                        'type' => 'true_false',
+                        'ui' => 1,
+                        'default_value' => 0,
+                        'show_in_graphql' => 1,
+                        'graphql_field_name' => 'enableNewsletterSignup',
+                    ),
+                )
+            ),
         ),
         'location' => array(
             array(
@@ -3592,48 +3767,6 @@ function cda_add_page_overrides() {
                     // Custom Why CDA fields would go here when override is enabled
                 )
             ),
-            
-            // Approach Override
-            array(
-                'key' => 'field_page_approach_override',
-                'label' => 'Approach Override',
-                'name' => 'approach_override',
-                'type' => 'group',
-                'instructions' => 'Override the global approach block for this page',
-                'required' => 0,
-                'conditional_logic' => 0,
-                'wrapper' => array(
-                    'width' => '',
-                    'class' => '',
-                    'id' => ''
-                ),
-                'layout' => 'block',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_override_approach',
-                        'label' => 'Override Global Approach',
-                        'name' => 'override_approach',
-                        'type' => 'true_false',
-                        'instructions' => 'Check to use custom approach content for this page',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array(
-                            'width' => '',
-                            'class' => '',
-                            'id' => ''
-                        ),
-                        'message' => '',
-                        'default_value' => 0,
-                        'ui' => 1,
-                        'ui_on_text' => '',
-                        'ui_off_text' => '',
-                        'show_in_graphql' => 1,
-                    ),
-                    // Custom approach fields would go here when override is enabled
-                )
-            ),
-            
         ),
         'location' => array(
             array(
@@ -3651,9 +3784,202 @@ function cda_add_page_overrides() {
         'instruction_placement' => 'label',
         'hide_on_screen' => '',
         'active' => true,
-        'description' => '',
+        'description' => 'Allow per-page overrides of global content blocks',
         'show_in_graphql' => 1,
         'graphql_field_name' => 'globalBlockOverrides',
+    ));
+}
+
+// ============================================================================
+// CONTACT PAGE CONTENT
+// ============================================================================
+
+add_action('acf/init', 'cda_add_contact_page_fields');
+function cda_add_contact_page_fields() {
+    acf_add_local_field_group(array(
+        'key' => 'group_contact_page_content',
+        'title' => 'Contact Page Content',
+        'fields' => array(
+            array(
+                'key' => 'field_contact_header',
+                'label' => 'Header',
+                'name' => 'header',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_contact_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_contact_text',
+                        'label' => 'Text',
+                        'name' => 'text',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                )
+            ),
+            array(
+                'key' => 'field_contact_form_code',
+                'label' => 'HubSpot Form Code',
+                'name' => 'form_code',
+                'type' => 'textarea',
+                'instructions' => 'Paste the HubSpot form embed code',
+                'rows' => 5,
+                'show_in_graphql' => 1,
+            ),
+            array(
+                'key' => 'field_contact_details',
+                'label' => 'Contact Details',
+                'name' => 'details',
+                'type' => 'wysiwyg',
+                'instructions' => 'Optional extra details to show alongside the form',
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'template-contact.php'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Content for Contact page',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'contactContent',
+        'map_graphql_types_from_location_rules' => false,
+        'graphql_types' => array('Page')
+    ));
+}
+
+// ============================================================================
+// KNOWLEDGE HUB PAGE CONTENT
+// ============================================================================
+
+add_action('acf/init', 'cda_add_knowledge_hub_fields');
+function cda_add_knowledge_hub_fields() {
+    acf_add_local_field_group(array(
+        'key' => 'group_knowledge_hub_page_content',
+        'title' => 'Knowledge Hub Content',
+        'fields' => array(
+            array(
+                'key' => 'field_kh_header',
+                'label' => 'Header',
+                'name' => 'header',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_kh_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'text',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_kh_intro',
+                        'label' => 'Intro Text',
+                        'name' => 'intro',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                )
+            ),
+            array(
+                'key' => 'field_kh_featured_posts',
+                'label' => 'Featured Posts',
+                'name' => 'featured_posts',
+                'type' => 'post_object',
+                'post_type' => array('post','blog_posts'),
+                'multiple' => 1,
+                'return_format' => 'object',
+                'show_in_graphql' => 1,
+            )
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'page_template',
+                    'operator' => '==',
+                    'value' => 'template-knowledge-hub.php'
+                )
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Content for the Knowledge Hub landing page',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'knowledgeHubContent',
+        'map_graphql_types_from_location_rules' => false,
+        'graphql_types' => array('Page')
+    ));
+}
+
+// ============================================================================
+// PAGE-LEVEL GLOBAL CONTENT TOGGLES (for any standard page)
+// ============================================================================
+
+add_action('acf/init', 'cda_add_page_global_toggles');
+function cda_add_page_global_toggles() {
+    acf_add_local_field_group(array(
+        'key' => 'group_page_global_content_selection',
+        'title' => 'Global Content Selection',
+        'fields' => array(
+            array('key' => 'field_page_enable_image_frame', 'label' => 'Enable Image Frame', 'name' => 'enable_image_frame', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableImageFrame'),
+            array('key' => 'field_page_enable_services_accordion', 'label' => 'Enable Services Accordion', 'name' => 'enable_services_accordion', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableServicesAccordion'),
+            array('key' => 'field_page_enable_why_cda', 'label' => 'Enable Why CDA', 'name' => 'enable_why_cda', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableWhyCda'),
+            array('key' => 'field_page_enable_showreel', 'label' => 'Enable Showreel', 'name' => 'enable_showreel', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableShowreel'),
+            array('key' => 'field_page_enable_culture_gallery_slider', 'label' => 'Enable Culture Gallery Slider', 'name' => 'enable_culture_gallery_slider', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableCultureGallerySlider'),
+            array('key' => 'field_page_enable_approach', 'label' => 'Enable Approach', 'name' => 'enable_approach', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableApproach'),
+            array('key' => 'field_page_enable_full_video', 'label' => 'Enable Full Video', 'name' => 'enable_full_video', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableFullVideo'),
+            array('key' => 'field_page_enable_join_our_team', 'label' => 'Enable Join Our Team', 'name' => 'enable_join_our_team', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableJoinOurTeam'),
+            array('key' => 'field_page_enable_three_columns_with_icons', 'label' => 'Enable 3 x Columns With Icons', 'name' => 'enable_three_columns_with_icons', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableThreeColumnsWithIcons'),
+            array('key' => 'field_page_enable_contact_form_left_image_right', 'label' => 'Enable Contact Form Left, Image Right', 'name' => 'enable_contact_form_left_image_right', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableContactFormLeftImageRight'),
+            array('key' => 'field_page_enable_technologies_slider', 'label' => 'Enable Technologies Slider', 'name' => 'enable_technologies_slider', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableTechnologiesSlider'),
+            array('key' => 'field_page_enable_values', 'label' => 'Enable Values', 'name' => 'enable_values', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableValues'),
+            array('key' => 'field_page_enable_stats_image', 'label' => 'Enable Stats Image', 'name' => 'enable_stats_image', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableStatsImage'),
+            array('key' => 'field_page_enable_locations_image', 'label' => 'Enable Locations Image', 'name' => 'enable_locations_image', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableLocationsImage'),
+            array('key' => 'field_page_enable_news_carousel', 'label' => 'Enable News Carousel', 'name' => 'enable_news_carousel', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableNewsCarousel'),
+            array('key' => 'field_page_enable_newsletter_signup', 'label' => 'Enable Newsletter Signup', 'name' => 'enable_newsletter_signup', 'type' => 'true_false', 'ui' => 1, 'default_value' => 0, 'show_in_graphql' => 1, 'graphql_field_name' => 'enableNewsletterSignup')
+        ),
+        'location' => array(
+            array(
+                array('param' => 'post_type', 'operator' => '==', 'value' => 'page'),
+                array('param' => 'page_template', 'operator' => '!=', 'value' => 'template-about-us.php')
+            )
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Toggle rendering of global content blocks on standard pages.',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'globalContentSelection',
+        'map_graphql_types_from_location_rules' => false,
+        'graphql_types' => array('Page')
     ));
 }
 
