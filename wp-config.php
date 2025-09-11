@@ -109,8 +109,3 @@ require_once ABSPATH . 'wp-settings.php';
 
 // wp-config.php
 define( 'ACF_PRO_LICENSE', 'b3JkZXJfaWQ9ODIxNDR8dHlwZT1kZXZlbG9wZXJ8ZGF0ZT0yMDE2LTA1LTIzIDEwOjQ5OjA0' );
-
-// debug ON
-define('WP_DEBUG', true);
-define('WP_DEBUG_LOG', true);
-define('WP_DEBUG_DISPLAY', false);
