@@ -3436,47 +3436,16 @@ function cda_add_about_us_fields() {
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_header_cta',
-                        'label' => 'CTA',
-                        'name' => 'cta',
-                        'type' => 'link',
-                        'show_in_graphql' => 1,
-                    )
-                )
-            ),
-
-            // Who We Are – Your Digital Partner (keep page-specific)
-            array(
-                'key' => 'field_who_we_are_section_about',
-                'label' => 'Who We Are – Your Digital Partner',
-                'name' => 'who_we_are_section',
-                'type' => 'group',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_image_with_frame',
-                        'label' => 'Image with Frame',
-                        'name' => 'image_with_frame',
+                        'key' => 'field_about_header_image',
+                        'label' => 'Header Image',
+                        'name' => 'header_image',
                         'type' => 'image',
                         'return_format' => 'object',
+                        'preview_size' => 'large',
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_section_title',
-                        'label' => 'Section Title',
-                        'name' => 'section_title',
-                        'type' => 'wysiwyg',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_section_text',
-                        'label' => 'Section Text',
-                        'name' => 'section_text',
-                        'type' => 'wysiwyg',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_section_cta',
+                        'key' => 'field_header_cta',
                         'label' => 'CTA',
                         'name' => 'cta',
                         'type' => 'link',
@@ -3494,34 +3463,39 @@ function cda_add_about_us_fields() {
                 'show_in_graphql' => 1,
                 'sub_fields' => array(
                     array(
-                        'key' => 'field_leader_image',
-                        'label' => 'Leader Image',
+                        'key' => 'field_leadership_title',
+                        'label' => 'Title',
+                        'name' => 'title',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leadership_subtitle',
+                        'label' => 'Subtitle',
+                        'name' => 'subtitle',
+                        'type' => 'text',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leadership_description',
+                        'label' => 'Description',
+                        'name' => 'description',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leadership_image',
+                        'label' => 'Image',
                         'name' => 'image',
                         'type' => 'image',
                         'return_format' => 'object',
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_leader_name',
-                        'label' => 'Name',
-                        'name' => 'name',
-                        'type' => 'text',
-                        'required' => 1,
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_leader_position',
-                        'label' => 'Position',
-                        'name' => 'position',
-                        'type' => 'text',
-                        'required' => 1,
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_leader_bio',
-                        'label' => 'Bio',
-                        'name' => 'bio',
-                        'type' => 'wysiwyg',
+                        'key' => 'field_leadership_cta',
+                        'label' => 'CTA',
+                        'name' => 'cta',
+                        'type' => 'link',
                         'show_in_graphql' => 1,
                     )
                 )
