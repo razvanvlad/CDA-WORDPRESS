@@ -29,6 +29,34 @@ add_filter('graphql_resolve_field', function($result, $source, $args, $context, 
     return $result;
 }, 10, 5);
 
+// Debug: Force ACF to load our fields
+add_action('admin_init', function() {
+    if (function_exists('acf_add_local_field_group')) {
+        // Force our job listing fields to be available
+        if (get_current_screen() && get_current_screen()->post_type === 'job_listings') {
+            // This ensures ACF fields are loaded for job listings
+            do_action('acf/init');
+        }
+    }
+});
+
+// Debug: Check if ACF fields are registered
+add_action('admin_footer', function() {
+    if (get_current_screen() && get_current_screen()->post_type === 'job_listings') {
+        if (function_exists('acf_get_field_groups')) {
+            $field_groups = acf_get_field_groups();
+            $job_groups = array_filter($field_groups, function($group) {
+                return strpos($group['key'], 'job') !== false || strpos($group['title'], 'Job') !== false;
+            });
+            if (empty($job_groups)) {
+                echo '<script>console.log("ACF Debug: No job listing field groups found. Available groups:", ' . json_encode(array_column($field_groups, 'title')) . ');</script>';
+            } else {
+                echo '<script>console.log("ACF Debug: Found job listing field groups:", ' . json_encode(array_column($job_groups, 'title')) . ');</script>';
+            }
+        }
+    }
+});
+
 // ============================================================================
 // WORDPRESS CLEANUP - Remove Gutenberg and other page builders
 // ============================================================================
@@ -139,17 +167,244 @@ function cda_create_custom_post_types() {
         'hierarchical' => false,
         'menu_position' => 23,
         'menu_icon' => 'dashicons-businessperson',
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes'),
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'excerpt'),
         'show_in_rest' => true,
         'rest_base' => 'job-listings',
         'show_in_graphql' => true,
         'graphql_single_name' => 'jobListing',
         'graphql_plural_name' => 'jobListings',
     ));
+
+}
+
+// ============================================================================
+// JOB LISTINGS ACF FIELD GROUPS
+// ============================================================================
+
+// Register ACF fields with higher priority
+add_action('acf/init', 'cda_add_job_listings_fields', 5);
+add_action('init', 'cda_add_job_listings_fields', 20);
+
+function cda_add_job_listings_fields() {
     
-    // ============================================================================
-    // TECHNOLOGIES (Individual Tech Stack Items)
-    // ============================================================================
+    // Check if ACF is available
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+    
+    // Add a simple test field first to ensure ACF is working
+    acf_add_local_field_group(array(
+        'key' => 'group_job_test_simple',
+        'title' => 'Job Test Fields (Simple)',
+        'fields' => array(
+            array(
+                'key' => 'field_job_test_location',
+                'label' => 'Job Location (Test)',
+                'name' => 'job_location_test',
+                'type' => 'text',
+                'instructions' => 'This is a test field to ensure ACF is working',
+                'required' => 0,
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'job_listings',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+        'description' => 'Test field group for job listings',
+    ));
+    
+    // Job Listings Content Field Group
+    acf_add_local_field_group(array(
+        'key' => 'group_job_listings_content',
+        'title' => 'Job Listing Details',
+        'fields' => array(
+            
+            // JOB DETAILS
+            array(
+                'key' => 'field_job_listing_details',
+                'label' => 'Job Details',
+                'name' => 'job_details',
+                'type' => 'group',
+                'instructions' => 'Basic job information',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'graphql_field_name' => 'jobDetails',
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_job_listing_location',
+                        'label' => 'Location',
+                        'name' => 'location',
+                        'type' => 'text',
+                        'instructions' => 'Job location (e.g., "Remote", "London, UK", "Hybrid")',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_salary',
+                        'label' => 'Salary',
+                        'name' => 'salary',
+                        'type' => 'text',
+                        'instructions' => 'e.g., "£30,000 - £45,000", "Competitive", "Based on experience"',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_experience_level',
+                        'label' => 'Experience Level',
+                        'name' => 'experience_level',
+                        'type' => 'select',
+                        'choices' => array(
+                            'entry' => 'Entry Level',
+                            'junior' => 'Junior',
+                            'mid' => 'Mid Level',
+                            'senior' => 'Senior',
+                            'lead' => 'Lead/Principal',
+                            'director' => 'Director',
+                        ),
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_publish_date',
+                        'label' => 'Publish Date',
+                        'name' => 'publish_date',
+                        'type' => 'date_picker',
+                        'return_format' => 'Y-m-d',
+                        'show_in_graphql' => 1,
+                    ),
+                ),
+            ),
+            
+            // JOB REQUIREMENTS
+            array(
+                'key' => 'field_job_listing_requirements',
+                'label' => 'Requirements & Qualifications',
+                'name' => 'requirements',
+                'type' => 'group',
+                'layout' => 'block',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_job_listing_about_the_position',
+                        'label' => 'ABOUT THE POSITION',
+                        'name' => 'about_the_position',
+                        'type' => 'wysiwyg',
+                        'instructions' => 'Information about the position',
+                        'toolbar' => 'basic',
+                        'media_upload' => 0,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_our_dream_candidate',
+                        'label' => 'OUR DREAM CANDIDATE',
+                        'name' => 'our_dream_candidate',
+                        'type' => 'wysiwyg',
+                        'instructions' => 'Information about the ideal candidate',
+                        'toolbar' => 'basic',
+                        'media_upload' => 0,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_job_listing_required_skills',
+                        'label' => 'KEY RESPONSIBILITIES',
+                        'name' => 'required_skills',
+                        'type' => 'repeater',
+                        'instructions' => 'Key responsabilities for this position',
+                        'min' => 1,
+                        'max' => 10,
+                        'layout' => 'table',
+                        'button_label' => 'Add responsability',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_job_responsability_name',
+                                'label' => 'Responsability',
+                                'name' => 'responsability',
+                                'type' => 'text',
+                                'show_in_graphql' => 1,
+                            ),
+                        ),
+                    ),
+                                        array(
+                        'key' => 'field_job_listing_qualifications',
+                        'label' => 'QUALIFICATIONS AND EXPERIENCE',
+                        'name' => 'required_qualifications',
+                        'type' => 'repeater',
+                        'instructions' => 'Candidate qualifications and experience for this position',
+                        'min' => 1,
+                        'max' => 10,
+                        'layout' => 'table',
+                        'button_label' => 'Add qualification',
+                        'show_in_graphql' => 1,
+                        'sub_fields' => array(
+                            array(
+                                'key' => 'field_job_qualification_name',
+                                'label' => 'Qualification',
+                                'name' => 'qualification',
+                                'type' => 'text',
+                                'show_in_graphql' => 1,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            
+            // APPLICATION PROCESS
+            
+            // JOB STATUS
+            array(
+                'key' => 'field_job_listing_status',
+                'label' => 'Job Status',
+                'name' => 'job_status',
+                'type' => 'select',
+                'instructions' => 'Current status of this job listing',
+                'choices' => array(
+                    'open' => 'Open - Accepting Applications',
+                    'urgent' => 'Urgent - Immediate Start',
+                    'closing_soon' => 'Closing Soon',
+                    'filled' => 'Position Filled',
+                    'on_hold' => 'On Hold',
+                ),
+                'default_value' => 'open',
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'job_listings',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => true,
+        'description' => 'Content fields for job listings',
+        'show_in_graphql' => 1,
+        'graphql_field_name' => 'jobListingFields',
+    ));
+}
+
+// ============================================================================
+// TECHNOLOGIES (Individual Tech Stack Items)
+// ============================================================================
+function cda_register_technologies_post_type() {
     register_post_type('technologies', array(
         'labels' => array(
             'name' => 'Technologies',
@@ -198,9 +453,9 @@ function cda_create_custom_post_types() {
     ));
     
     // ============================================================================
-    // SERVICES POST TYPE
+    // TECHNOLOGIES (Individual Tech Stack Items)
     // ============================================================================
-    register_post_type('services', array(
+    register_post_type('technologies', array(
         'labels' => array(
             'name' => 'Services',
             'singular_name' => 'Service',
@@ -347,6 +602,14 @@ function cda_create_custom_post_types() {
         'graphql_plural_name' => 'teamMembers',
     ));
 }
+
+// ============================================================================
+// JOB LISTINGS ACF FIELD GROUPS (Outside main function)
+// ============================================================================
+
+// Register ACF fields with higher priority
+add_action('acf/init', 'cda_add_job_listings_fields', 5);
+add_action('init', 'cda_add_job_listings_fields', 20);
 
 // ============================================================================
 // TAXONOMIES - Add your custom taxonomies here
@@ -3454,6 +3717,46 @@ function cda_add_about_us_fields() {
                 )
             ),
 
+            // Who We Are – Your Digital Partner (keep page-specific)
+            array(
+                'key' => 'field_who_we_are_section_about',
+                'label' => 'Who We Are – Your Digital Partner',
+                'name' => 'who_we_are_section',
+                'type' => 'group',
+                'show_in_graphql' => 1,
+                'sub_fields' => array(
+                    array(
+                        'key' => 'field_image_with_frame',
+                        'label' => 'Image with Frame',
+                        'name' => 'image_with_frame',
+                        'type' => 'image',
+                        'return_format' => 'object',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_title',
+                        'label' => 'Section Title',
+                        'name' => 'section_title',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_text',
+                        'label' => 'Section Text',
+                        'name' => 'section_text',
+                        'type' => 'wysiwyg',
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_section_cta',
+                        'label' => 'CTA',
+                        'name' => 'cta',
+                        'type' => 'link',
+                        'show_in_graphql' => 1,
+                    )
+                )
+            ),
+
             // Leadership Team (keep page-specific)
             array(
                 'key' => 'field_leadership_section',
@@ -3463,39 +3766,34 @@ function cda_add_about_us_fields() {
                 'show_in_graphql' => 1,
                 'sub_fields' => array(
                     array(
-                        'key' => 'field_leadership_title',
-                        'label' => 'Title',
-                        'name' => 'title',
-                        'type' => 'wysiwyg',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_leadership_subtitle',
-                        'label' => 'Subtitle',
-                        'name' => 'subtitle',
-                        'type' => 'text',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_leadership_description',
-                        'label' => 'Description',
-                        'name' => 'description',
-                        'type' => 'wysiwyg',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_leadership_image',
-                        'label' => 'Image',
+                        'key' => 'field_leader_image',
+                        'label' => 'Leader Image',
                         'name' => 'image',
                         'type' => 'image',
                         'return_format' => 'object',
                         'show_in_graphql' => 1,
                     ),
                     array(
-                        'key' => 'field_leadership_cta',
-                        'label' => 'CTA',
-                        'name' => 'cta',
-                        'type' => 'link',
+                        'key' => 'field_leader_name',
+                        'label' => 'Name',
+                        'name' => 'name',
+                        'type' => 'text',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_position',
+                        'label' => 'Position',
+                        'name' => 'position',
+                        'type' => 'text',
+                        'required' => 1,
+                        'show_in_graphql' => 1,
+                    ),
+                    array(
+                        'key' => 'field_leader_bio',
+                        'label' => 'Bio',
+                        'name' => 'bio',
+                        'type' => 'wysiwyg',
                         'show_in_graphql' => 1,
                     )
                 )
@@ -4399,205 +4697,7 @@ function cda_add_blog_posts_fields() {
     ));
 }
 
-// ============================================================================
-// JOB LISTINGS ACF FIELD GROUPS
-// ============================================================================
 
-add_action('acf/init', 'cda_add_job_listings_fields');
-function cda_add_job_listings_fields() {
-    
-    // Job Listings Content Field Group
-    acf_add_local_field_group(array(
-        'key' => 'group_job_listings_content',
-        'title' => 'Job Listing Details',
-        'fields' => array(
-            
-            // JOB DETAILS
-            array(
-                'key' => 'field_job_listing_details',
-                'label' => 'Job Details',
-                'name' => 'job_details',
-                'type' => 'group',
-                'instructions' => 'Basic job information',
-                'layout' => 'block',
-                'show_in_graphql' => 1,
-                'graphql_field_name' => 'jobDetails',
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_job_listing_location',
-                        'label' => 'Location',
-                        'name' => 'location',
-                        'type' => 'text',
-                        'instructions' => 'Job location (e.g., "Remote", "London, UK", "Hybrid")',
-                        'required' => 1,
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_job_listing_salary_range',
-                        'label' => 'Salary Range',
-                        'name' => 'salary_range',
-                        'type' => 'text',
-                        'instructions' => 'e.g., "£30,000 - £45,000", "Competitive", "DOE"',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_job_listing_experience_level',
-                        'label' => 'Experience Level',
-                        'name' => 'experience_level',
-                        'type' => 'select',
-                        'choices' => array(
-                            'entry' => 'Entry Level',
-                            'junior' => 'Junior',
-                            'mid' => 'Mid Level',
-                            'senior' => 'Senior',
-                            'lead' => 'Lead/Principal',
-                            'director' => 'Director',
-                        ),
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_job_listing_application_deadline',
-                        'label' => 'Application Deadline',
-                        'name' => 'application_deadline',
-                        'type' => 'date_picker',
-                        'return_format' => 'Y-m-d',
-                        'show_in_graphql' => 1,
-                    ),
-                ),
-            ),
-            
-            // JOB REQUIREMENTS
-            array(
-                'key' => 'field_job_listing_requirements',
-                'label' => 'Requirements & Qualifications',
-                'name' => 'requirements',
-                'type' => 'group',
-                'layout' => 'block',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_job_listing_required_skills',
-                        'label' => 'Required Skills',
-                        'name' => 'required_skills',
-                        'type' => 'repeater',
-                        'instructions' => 'Key skills and requirements for this position',
-                        'min' => 1,
-                        'max' => 10,
-                        'layout' => 'table',
-                        'button_label' => 'Add Skill',
-                        'show_in_graphql' => 1,
-                        'sub_fields' => array(
-                            array(
-                                'key' => 'field_job_skill_name',
-                                'label' => 'Skill',
-                                'name' => 'skill',
-                                'type' => 'text',
-                                'show_in_graphql' => 1,
-                            ),
-                            array(
-                                'key' => 'field_job_skill_level',
-                                'label' => 'Required Level',
-                                'name' => 'level',
-                                'type' => 'select',
-                                'choices' => array(
-                                    'basic' => 'Basic',
-                                    'intermediate' => 'Intermediate',
-                                    'advanced' => 'Advanced',
-                                    'expert' => 'Expert',
-                                ),
-                                'show_in_graphql' => 1,
-                            ),
-                        ),
-                    ),
-                    array(
-                        'key' => 'field_job_listing_responsibilities',
-                        'label' => 'Key Responsibilities',
-                        'name' => 'responsibilities',
-                        'type' => 'wysiwyg',
-                        'instructions' => 'Main duties and responsibilities',
-                        'toolbar' => 'basic',
-                        'media_upload' => 0,
-                        'show_in_graphql' => 1,
-                    ),
-                ),
-            ),
-            
-            // APPLICATION PROCESS
-            array(
-                'key' => 'field_job_listing_application',
-                'label' => 'Application Process',
-                'name' => 'application_process',
-                'type' => 'group',
-                'layout' => 'block',
-                'show_in_graphql' => 1,
-                'sub_fields' => array(
-                    array(
-                        'key' => 'field_job_listing_application_email',
-                        'label' => 'Application Email',
-                        'name' => 'application_email',
-                        'type' => 'email',
-                        'instructions' => 'Email for job applications',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_job_listing_application_url',
-                        'label' => 'Application URL',
-                        'name' => 'application_url',
-                        'type' => 'url',
-                        'instructions' => 'External application form URL',
-                        'show_in_graphql' => 1,
-                    ),
-                    array(
-                        'key' => 'field_job_listing_application_instructions',
-                        'label' => 'Application Instructions',
-                        'name' => 'application_instructions',
-                        'type' => 'textarea',
-                        'instructions' => 'Special instructions for applicants',
-                        'rows' => 4,
-                        'show_in_graphql' => 1,
-                    ),
-                ),
-            ),
-            
-            // JOB STATUS
-            array(
-                'key' => 'field_job_listing_status',
-                'label' => 'Job Status',
-                'name' => 'job_status',
-                'type' => 'select',
-                'instructions' => 'Current status of this job listing',
-                'choices' => array(
-                    'open' => 'Open - Accepting Applications',
-                    'urgent' => 'Urgent - Immediate Start',
-                    'closing_soon' => 'Closing Soon',
-                    'filled' => 'Position Filled',
-                    'on_hold' => 'On Hold',
-                ),
-                'default_value' => 'open',
-                'show_in_graphql' => 1,
-            ),
-        ),
-        'location' => array(
-            array(
-                array(
-                    'param' => 'post_type',
-                    'operator' => '==',
-                    'value' => 'job_listings',
-                ),
-            ),
-        ),
-        'menu_order' => 0,
-        'position' => 'normal',
-        'style' => 'default',
-        'label_placement' => 'top',
-        'instruction_placement' => 'label',
-        'hide_on_screen' => '',
-        'active' => true,
-        'description' => 'Content fields for job listings',
-        'show_in_graphql' => 1,
-        'graphql_field_name' => 'jobListingFields',
-    ));
-}
 
 // ============================================================================
 // TECHNOLOGIES ACF FIELD GROUPS
