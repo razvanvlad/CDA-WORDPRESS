@@ -21,6 +21,9 @@ add_filter('graphql_acf_get_fields_config', function($config, $acf_field, $type_
     return $config;
 }, 10, 3);
 
+// Note: ACF fields should be registered by WPGraphQL ACF plugin
+// If ACF fields aren't showing, ensure wpgraphql-acf plugin is active
+
 // Add this filter to ensure ACF fields are properly exposed to GraphQL
 add_filter('graphql_resolve_field', function($result, $source, $args, $context, $info) {
     // This ensures ACF fields are properly resolved

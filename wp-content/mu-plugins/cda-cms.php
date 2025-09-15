@@ -75,26 +75,23 @@ foreach ($taxonomies as $taxonomy) {
 // LOAD ACF FIELD GROUPS
 // ============================================================================
 
-// Only load ACF fields if ACF is active
-if (function_exists('acf_add_local_field_group')) {
-    
-    // Load field group definitions
-    $field_groups = [
-        'job-listings-fields',
-        'services-fields',
-        'case-studies-fields',
-        'team-members-fields',
-        'blog-posts-fields',
-        'technologies-fields',
-        'global-options',
-        'page-specific-fields'
-    ];
-    
-    foreach ($field_groups as $field_group) {
-        $file = CDA_CMS_PATH . 'acf-fields/' . $field_group . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-        }
+// Load ACF field group definitions
+// The individual files will check if ACF is available before registering
+$field_groups = [
+    'job-listings-fields',
+    'services-fields',
+    'case-studies-fields',
+    'team-members-fields',
+    'blog-posts-fields',
+    'technologies-fields',
+    'global-options',
+    'page-specific-fields'
+];
+
+foreach ($field_groups as $field_group) {
+    $file = CDA_CMS_PATH . 'acf-fields/' . $field_group . '.php';
+    if (file_exists($file)) {
+        require_once $file;
     }
 }
 

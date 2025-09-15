@@ -14,10 +14,49 @@ add_action('init', 'cda_add_job_listings_fields', 20);
 
 function cda_add_job_listings_fields() {
     
+    // Debug: Log that function is called
+    error_log('CDA ACF: cda_add_job_listings_fields() called');
+    
     // Check if ACF is available
     if (!function_exists('acf_add_local_field_group')) {
+        error_log('CDA ACF: acf_add_local_field_group function not found');
         return;
     }
+    
+    error_log('CDA ACF: About to register job listings field group');
+    
+    // Add a simple test field first to ensure ACF is working
+    acf_add_local_field_group(array(
+        'key' => 'group_job_test_simple',
+        'title' => 'Job Test Fields (Simple)',
+        'fields' => array(
+            array(
+                'key' => 'field_job_test_location',
+                'label' => 'Job Location (Test)',
+                'name' => 'job_location_test',
+                'type' => 'text',
+                'instructions' => 'This is a test field to ensure ACF is working',
+                'required' => 0,
+                'show_in_graphql' => 1,
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'job_listings',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'active' => true,
+        'description' => 'Test field group for job listings',
+    ));
     
     // Job Listings Content Field Group
     acf_add_local_field_group(array(
@@ -113,17 +152,17 @@ function cda_add_job_listings_fields() {
                         'label' => 'KEY RESPONSIBILITIES',
                         'name' => 'required_skills',
                         'type' => 'repeater',
-                        'instructions' => 'Key responsibilities for this position',
+                        'instructions' => 'Key responsabilities for this position',
                         'min' => 1,
                         'max' => 10,
                         'layout' => 'table',
-                        'button_label' => 'Add responsibility',
+                        'button_label' => 'Add responsability',
                         'show_in_graphql' => 1,
                         'sub_fields' => array(
                             array(
-                                'key' => 'field_job_responsibility_name',
-                                'label' => 'Responsibility',
-                                'name' => 'responsibility',
+                                'key' => 'field_job_responsability_name',
+                                'label' => 'Responsability',
+                                'name' => 'responsability',
                                 'type' => 'text',
                                 'show_in_graphql' => 1,
                             ),
